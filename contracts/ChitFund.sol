@@ -3,40 +3,22 @@
 pragma solidity ^0.6.8;
 import 'https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/math/SafeMath.sol';
 // import "@openzeppelin/contracts/math/SafeMath.sol";
-
-contract ChitFundFactory {
-    address[] public funds;
-
-    function createFund(string memory _fundName, uint _installmentAmount, uint _noOfInstallments, uint _noOfInvestors) public {
-        ChitFund _newFund = new ChitFund(_fundName, _installmentAmount, _noOfInstallments, _noOfInvestors, msg.sender);
-        address newFund= address(_newFund);
-        funds.push(newFund);
-    }
-
-    function listAllFunds() public view returns (address[] memory) {
-        return funds;
-    }
-
-    function getFunds(uint _index) public view returns (address) {
-        return funds[_index];
-    }
-}
-
 contract ChitFund {
 
     using SafeMath for uint;
 
-    string public fundName;
-    uint public jackpot;
-    uint public noOfInstallments;
-    uint public noOfInvestors;
-    address public manager;
-    uint public fundBalance;
-    uint public installmentAmount;
-    uint public noOfInvestorsJoined;
+    string private fundName;
+    uint private jackpot;
+    uint private noOfInstallments;
+    uint private noOfInvestors;
+    address private manager;
+    uint private fundBalance;
+    uint private installmentAmount;
+    uint private noOfInvestorsJoined;
     address payable private winner =address(0);
-    uint public previusBid = 0;
-    uint public  winnersAmount;
+    uint private winnersBid = 0;
+    uint private  winnersAmount;
+
 
 
 
@@ -52,21 +34,21 @@ contract ChitFund {
     mapping(address => Investor) public investors;
 
     modifier isManager() {
-        require(msg.sender == manager,'Only ');
+        require(msg.sender == manager,'Only Manager ');
         _;
     }
-    constructor (string memory _fundName, uint _installmentAmount, uint _noOfInstallments, uint _noOfInvestors, address _manager) public {
+    constructor (string memory _fundName, uint _installmentAmount, uint _noOfInstallments, uint _noOfInvestors) public {
         fundName = _fundName;
         noOfInstallments = _noOfInstallments;
         noOfInvestors = _noOfInvestors;
-        manager = _manager;
+        manager = msg.sender;
         installmentAmount = _installmentAmount * 1e18;
         jackpot = SafeMath.mul(installmentAmount,noOfInvestors);
     }
 
-    function getinstallmentAmount() public view returns (uint _amount) {
-      return installmentAmount;
-    }
+    // function getinstallmentAmount() public view returns (uint _amount) {
+    //   return installmentAmount;
+    // }
 
 
 
@@ -97,31 +79,50 @@ contract ChitFund {
         require(investors[msg.sender].canBid,'You were a winner in previous biddings');
         investors[msg.sender].currentBidPercentage = _bid;
         investors[msg.sender].isReadytoInvest = true;
-        uint previusBit = _bid;
-        if(_bid > previusBid){
+         // winnersBid = _bid;
+        if(_bid > winnersBid){
           winner = msg.sender;
+          winnersBid = _bid;
         }
-        previusBid = _bid;
+
     }
 
     function getWinner() view public returns (address) {
       return winner;
     }
 
-    function calculateWinnesJackpot(address _winner) public {
+    function calculateWinnesJackpot(address  _winner) private returns(uint)  {
       uint percentage = investors[_winner].currentBidPercentage;
       uint x = SafeMath.mul(fundBalance,percentage);
       uint y = SafeMath.div(x,100);
       winnersAmount = fundBalance - y;
       investors[_winner].canBid = false;
+      return winnersAmount;
 
     }
 
 
     function releaseFund() public payable isManager {
       require(fundBalance == jackpot,'Contributions required');
-          winner.transfer(address(this).balance);
+      uint _winnersAmount = calculateWinnesJackpot(winner);
+      winner.transfer(_winnersAmount);
+      fundBalance = fundBalance - _winnersAmount;
+
     }
+    function viewFund() public view returns (
+      string memory _fundName,
+      uint _jackpot,
+      uint _noOfInstallments,
+      uint _noOfInvestors,
+      uint _fundBalance,
+      uint _installmentAmount,
+      uint _noOfInvestorsJoined )
+      {
+      return(fundName,jackpot,noOfInstallments,noOfInvestors,fundBalance,installmentAmount,noOfInvestorsJoined
+      );
+    }
+
+
 
 
 
