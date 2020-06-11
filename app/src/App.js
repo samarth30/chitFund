@@ -1,29 +1,15 @@
-import React from "react";
-import { DrizzleContext } from "@drizzle/react-plugin";
-import { Drizzle } from "@drizzle/store";
-import drizzleOptions from "./drizzleOptions";
-import MyComponent from "./MyComponent";
-import "./App.css";
+import React from 'react';
+import { DrizzleProvider } from 'drizzle-react';
+import Container from './Container';
+import drizzleOptions from './drizzleOptions';
+import MyComponent from './MyComponent';
 
-const drizzle = new Drizzle(drizzleOptions);
-
-const App = () => {
+function App() {
   return (
-    <DrizzleContext.Provider drizzle={drizzle}>
-      <DrizzleContext.Consumer>
-        {drizzleContext => {
-          const { drizzle, drizzleState, initialized } = drizzleContext;
+    <DrizzleProvider options={drizzleOptions}>
 
-          if (!initialized) {
-            return "Loading..."
-          }
-
-          return (
-            <MyComponent drizzle={drizzle} drizzleState={drizzleState} />
-          )
-        }}
-      </DrizzleContext.Consumer>
-    </DrizzleContext.Provider>
+        <Container />
+    </DrizzleProvider>
   );
 }
 
