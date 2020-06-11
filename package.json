@@ -1,5 +1,5 @@
 {
-  "name": "chitFund",
+  "name": "drizzle-box",
   "version": "1.0.0",
   "description": "",
   "main": "truffle-config.js",
@@ -9,13 +9,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/truffle-box/drizzle-box.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/truffle-box/drizzle-box/issues"
+  },
+  "homepage": "https://github.com/truffle-box/drizzle-box#readme",
   "dependencies": {
-    "@openzeppelin/contracts": "^3.0.1",
+    "@openzeppelin/contracts": "^2.4.0",
     "@truffle/hdwallet-provider": "^1.0.35",
-    "dotenv": "^8.2.0",
-    "web3": "^1.2.8"
+    "dotenv": "^8.2.0"
   }
 }

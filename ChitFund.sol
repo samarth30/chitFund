@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.5.0;
-// import 'https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/math/SafeMath.sol';
-import "@openzeppelin/contracts/math/SafeMath.sol";
+pragma solidity ^0.6.8;
+import 'https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/math/SafeMath.sol';
+// import "@openzeppelin/contracts/math/SafeMath.sol";
 contract ChitFund {
 
     using SafeMath for uint;
