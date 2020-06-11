@@ -21,19 +21,12 @@ const Container = ({
 
   return (
     <div>
-      <h6>
-        funding name: {viewfund[0]} <br></br>
-        jackpot: {window.web3.utils.fromWei(viewfund[1], "ether")} eth <br></br>
-        No of Installments : {viewfund[2]} <br></br>
-        No of Investors : {viewfund[3]} <br></br>
-        No of Investors Joined : {viewfund[6]} <br></br>
-        Installment Amount : {window.web3.utils.fromWei(
-          viewfund[5],
-          "ether"
-        )}{" "}
-        eth <br></br>
-        Fund Balance : {window.web3.utils.fromWei(viewfund[4], "ether")} eth
-        <br></br>
+      <p data-animation="fadeInLeft" data-delay=".2s">
+        jackpot:
+        <span style={{ color: "#000000" }}>
+          {window.web3.utils.fromWei(viewfund[1], "ether")} ether
+        </span>{" "}
+        {/* <br></br>
         <b>YOUR DETAILS:</b>
         <br></br>
         <button onClick={joinFund} className="btn btn-primary">
@@ -74,8 +67,8 @@ const Container = ({
         <br></br>
         <button onClick={releaseFund} className="btn btn-primary">
           release fund
-        </button>
-      </h6>
+        </button> */}
+      </p>
     </div>
   );
 };
