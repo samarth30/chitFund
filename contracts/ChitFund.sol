@@ -5,7 +5,6 @@ pragma solidity ^0.6.8;
 
 import "@openzeppelin/contracts/math/SafeMath.sol";
 
-
 contract ChitFund {
     using SafeMath for uint256;
 
@@ -167,5 +166,32 @@ contract ChitFund {
             installmentAmount,
             noOfInvestorsJoined
         );
+    }
+}
+
+contract ChitFundFactory {
+    ChitFund[] public deployedFunds;
+
+    function createFund(
+        string name,
+        uint256 amount,
+        uint256 installments,
+        uint256 participants
+    ) public {
+        address newFund = new ChitFund(
+            name,
+            amount,
+            installments,
+            participants
+        );
+        deployedFunds.push(newFund);
+    }
+
+    function getDeployedFunds() public view returns (ChitFunds[]) {
+        return deployedFunds;
+    }
+
+    function getNoOfDeployedFunds() public returns (uint256) {
+        return deployesFunds.length();
     }
 }
