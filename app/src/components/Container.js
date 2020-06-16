@@ -22,10 +22,10 @@ const Container = ({
   return (
     <div>
       <p data-animation="fadeInLeft" data-delay=".2s">
-        jackpot:
+        {/* jackpot:
         <span style={{ color: "#000000" }}>
           {window.web3.utils.fromWei(viewfund[1], "ether")} ether
-        </span>{" "}
+        </span>{" "} */}
         {/* <br></br>
         <b>YOUR DETAILS:</b>
         <br></br>
