@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Web3 from "web3";
 
 function Home({
   viewfund,
@@ -7,7 +8,14 @@ function Home({
   getWinner,
   releaseFund,
   bidForJackpot,
+  loadBlockchainData,
+  loadWeb3,
 }) {
+  useEffect(() => {
+    loadWeb3();
+    loadBlockchainData();
+  }, []);
+
   const [bidding, SetBidding] = useState("");
   const onChange = (e) => {
     SetBidding(e.target.value);
