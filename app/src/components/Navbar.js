@@ -1,5 +1,6 @@
 import React from "react";
 import Identicon from "identicon.js";
+import { Link } from "react-router-dom";
 
 const Navbar = ({ account, viewfund }) => {
   return (
@@ -17,10 +18,10 @@ const Navbar = ({ account, viewfund }) => {
                     <nav>
                       <ul id="navigation">
                         <li class="active">
-                          <a href="index.html">Home</a>
+                          <Link to="/">Home</Link>
                         </li>
                         <li>
-                          <a href="about.html">About</a>
+                          <Link to="/about">About</Link>
                         </li>
                         <li>
                           <a href="services.html">Services</a>

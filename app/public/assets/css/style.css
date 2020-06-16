@@ -2691,8 +2691,8 @@ hr {
 
 /* line 763, ../../../sponDon TI/Running Project/259.Finance_HTML/assets/scss/_common.scss */
 .testimonial-padding {
-  padding-top: 190px;
-  padding-bottom: 170px;
+  padding-top: 80px;
+  padding-bottom: 50px;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
