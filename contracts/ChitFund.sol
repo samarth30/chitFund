@@ -168,30 +168,3 @@ contract ChitFund {
         );
     }
 }
-
-contract ChitFundFactory {
-    ChitFund[] public deployedFunds;
-
-    function createFund(
-        string name,
-        uint256 amount,
-        uint256 installments,
-        uint256 participants
-    ) public {
-        address newFund = new ChitFund(
-            name,
-            amount,
-            installments,
-            participants
-        );
-        deployedFunds.push(newFund);
-    }
-
-    function getDeployedFunds() public view returns (ChitFunds[]) {
-        return deployedFunds;
-    }
-
-    function getNoOfDeployedFunds() public returns (uint256) {
-        return deployesFunds.length();
-    }
-}
