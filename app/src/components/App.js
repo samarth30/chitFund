@@ -3,6 +3,7 @@ import Container from "./Container";
 import Navbar from "./Navbar";
 import Web3 from "web3";
 import ChitFund from "../contracts/ChitFund.json";
+import ChitFundFactory from "../contracts/ChitFundFactory.json";
 import Footer from "./Footer.js";
 import Home from "./Home.js";
 import {
@@ -20,6 +21,9 @@ const App = () => {
   const [viewfund, setViewfund] = useState([]);
   const [fundName, setFundName] = useState("");
   const [account, setAccount] = useState("");
+  const [chitfundfactory, setChitfundfactory] = useState("");
+  const [factories, setFactories] = useState([]);
+  const [ChitFundFactorycount, setChitFundFactorycount] = useState(0);
 
   useEffect(() => {
     loadWeb3();
@@ -52,11 +56,30 @@ const App = () => {
         networkData.address
       );
 
+      const ChitFundFactoryy = new web3.eth.Contract(
+        ChitFundFactory.abi,
+        networkData.address
+      );
+
+      setChitfundfactory(ChitFundFactoryy);
       setChitfund(chitfundd);
 
       const viewFund = await chitfundd.methods.viewFund().call();
       setViewfund(viewFund);
 
+      const chitfundcount = await ChitFundFactoryy.methods.ChitfundCount.call();
+      setChitFundFactorycount(chitfundcount);
+      let f = [];
+      for (var i = 1; i <= 1; i++) {
+        const chitfundfactories = await ChitFundFactoryy.methods
+          .launchedChitfunds(i)
+          .call();
+        f.push(chitfundfactories);
+      }
+
+      setFactories(f);
+      console.log(ChitFundFactorycount);
+      console.log(factories);
       setLoading(false);
     } else {
       window.alert("Chitfund contract not deployed to detected network.");
@@ -113,6 +136,19 @@ const App = () => {
       });
   };
 
+  const createChitFund = (name, amount, installments, participants) => {
+    console.log(name);
+    console.log(amount);
+    console.log(installments);
+    console.log(participants);
+    setLoading(true);
+    chitfundfactory.methods
+      .createFund(name, amount, installments, participants)
+      .send({ from: account })
+      .once("recepient", (recepient) => {
+        setLoading(false);
+      });
+  };
   return (
     <Router>
       <div className="App">
@@ -131,6 +167,8 @@ const App = () => {
                   render={(props) => (
                     <Fragment>
                       <Home
+                        loadWeb3={loadWeb3}
+                        loadBlockchainData={loadBlockchainData}
                         viewfund={viewfund}
                         bidForJackpot={bidForJackpot}
                         releaseFund={releaseFund}
@@ -147,7 +185,14 @@ const App = () => {
                   path="/about"
                   render={(props) => (
                     <Fragment>
-                      <About />
+                      <About
+                        loadWeb3={loadWeb3}
+                        loadBlockchainData={loadBlockchainData}
+                        createChitFund={createChitFund}
+                        factories={factories}
+                        ChitFundFactorycount={ChitFundFactorycount}
+                        account={account}
+                      />
                       <Footer />
                     </Fragment>
                   )}
