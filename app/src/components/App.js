@@ -50,32 +50,33 @@ const App = () => {
     setAccount(accounts[0]);
     const networkId = await web3.eth.net.getId();
     const networkData = ChitFund.networks[networkId];
+    const networkData2 = ChitFundFactory.networks[networkId];
     if (networkData) {
       const chitfundd = new web3.eth.Contract(
         ChitFund.abi,
         networkData.address
       );
 
-      const ChitFundFactoryy = new web3.eth.Contract(
+      const chitFundFactoryy = new web3.eth.Contract(
         ChitFundFactory.abi,
-        networkData.address
+        networkData2.address
       );
 
-      setChitfundfactory(ChitFundFactoryy);
+      setChitfundfactory(chitFundFactoryy);
       setChitfund(chitfundd);
 
       const viewFund = await chitfundd.methods.viewFund().call();
       setViewfund(viewFund);
 
-      const chitfundcount = await ChitFundFactoryy.methods.ChitfundCount.call();
+      const chitfundcount = await chitFundFactoryy.methods
+        .ChitfundCount()
+        .call();
       setChitFundFactorycount(chitfundcount);
       let f = [];
-      for (var i = 1; i <= 1; i++) {
-        const chitfundfactories = await ChitFundFactoryy.methods
-          .launchedChitfunds(i)
-          .call();
-        f.push(chitfundfactories);
-      }
+      // for (var i = 1; i <= chitfundcount; i++) {
+      //   const x = await chitFundFactoryy.methods.launchedChitfunds(i).call();
+      //   f.push(x);
+      // }
 
       setFactories(f);
       console.log(ChitFundFactorycount);
@@ -145,10 +146,27 @@ const App = () => {
     chitfundfactory.methods
       .createFund(name, amount, installments, participants)
       .send({ from: account })
-      .once("recepient", (recepient) => {
+      .once("recepient", async (recepient) => {
+        await chitfundfactory.launchedChitfunds().sendTransaction();
+
         setLoading(false);
       });
   };
+
+  const products = async () => {
+    const chitfundcount = await chitfundfactory.methods.ChitfundCount().call();
+    setChitFundFactorycount(chitfundcount);
+    let f = [];
+    for (var i = 1; i <= chitfundcount; i++) {
+      const x = await chitfundfactory.methods.launchedChitfunds(i).call();
+      f.push(x);
+    }
+
+    setFactories(f);
+    console.log(ChitFundFactorycount);
+    console.log(factories);
+  };
+
   return (
     <Router>
       <div className="App">
