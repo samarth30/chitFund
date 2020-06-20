@@ -1,6 +1,6 @@
 import React from "react";
 
-function Footer() {
+const Footer = () => {
   return (
     <div>
       {/* <div class="testimonial-area t-bg testimonial-padding">
@@ -155,6 +155,6 @@ function Footer() {
       </footer>
     </div>
   );
-}
+};
 
 export default Footer;

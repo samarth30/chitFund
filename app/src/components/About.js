@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-function About({ createChitFund, factories, ChitFundFactorycount, account }) {
+const About = ({
+  createChitFund,
+  ChitFundFactorycount,
+  account,
+  factories,
+}) => {
   const [newChitFund, setNewChitFund] = useState({
     name: "",
     amount: "",
@@ -55,6 +60,7 @@ function About({ createChitFund, factories, ChitFundFactorycount, account }) {
                       }}
                       class="fontfirst"
                     >
+                      {/* {factories} */}
                       {/* No of Installments :{viewfund[2]} */}
                     </span>
                     <span
@@ -112,6 +118,7 @@ function About({ createChitFund, factories, ChitFundFactorycount, account }) {
                       </div>
                     </div> */}
           </div>
+
           {/* 
                   <div class="slider-footer section-bg d-none d-sm-block">
                     <div class="footer-wrapper">
@@ -203,6 +210,7 @@ function About({ createChitFund, factories, ChitFundFactorycount, account }) {
             </div>
           </form>
         </div>
+
         {/* 
                 <div class="about-low-area section-padding2">
                   <div class="container">
@@ -573,9 +581,47 @@ function About({ createChitFund, factories, ChitFundFactorycount, account }) {
                     </div>
                   </div>
                 </div> */}
+        <h1>+ hello</h1>
+        {/* {factories.map((home) => (
+          <div>{home.name}</div>
+        ))} */}
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {factories.map((factory, key) => {
+              return (
+                <tr key={factory.count.toString()}>
+                  <th scope="row">{factory.count.toString()}</th>
+                  <td>{factory.chitfund}</td>
+
+                  <td>{factory.manager}</td>
+                  <td>
+                    {account !== factory.manager ? (
+                      <button
+                        className="btn btn-primary"
+                        name={factory.manager}
+                        value={factory.manager}
+                      >
+                        Buy
+                      </button>
+                    ) : (
+                      <button className="btn btn-success">Owned</button>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </main>
     </div>
   );
-}
+};
 
 export default About;

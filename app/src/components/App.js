@@ -14,6 +14,7 @@ import {
 } from "react-router-dom";
 import Loader from "./Loader";
 import About from "./About";
+import Aboutt from "./Aboutt";
 
 const App = () => {
   const [Loading, setLoading] = useState(true);
@@ -72,15 +73,37 @@ const App = () => {
         .ChitfundCount()
         .call();
       setChitFundFactorycount(chitfundcount);
-      let f = [];
+
       // for (var i = 1; i <= chitfundcount; i++) {
       //   const x = await chitFundFactoryy.methods.launchedChitfunds(i).call();
-      //   f.push(x);
+      //   console.log(x);
+      //   factories.push(x);
       // }
-
-      setFactories(f);
-      console.log(ChitFundFactorycount);
+      var a = new Array();
+      await chitFundFactoryy.events
+        .launchedChitfunds(
+          {
+            filter: {
+              myIndexedParam: [20, 23],
+              myOtherIndexedParam: "0x123456789...",
+            }, // Using an array means OR: e.g. 20 or 23
+            fromBlock: 0,
+          },
+          function (error, event) {
+            console.log(event);
+          }
+        )
+        .on("data", function (event) {
+          factories.push(event.returnValues);
+        })
+        .on("changed", function (event) {
+          // remove event from local database
+        })
+        .on("error", console.error);
+      setFactories(factories);
+      const x = [...factories];
       console.log(factories);
+
       setLoading(false);
     } else {
       window.alert("Chitfund contract not deployed to detected network.");
@@ -147,24 +170,10 @@ const App = () => {
       .createFund(name, amount, installments, participants)
       .send({ from: account })
       .once("recepient", async (recepient) => {
-        await chitfundfactory.launchedChitfunds().sendTransaction();
+        // await chitfundfactory.launchedChitfunds().sendTransaction();
 
         setLoading(false);
       });
-  };
-
-  const products = async () => {
-    const chitfundcount = await chitfundfactory.methods.ChitfundCount().call();
-    setChitFundFactorycount(chitfundcount);
-    let f = [];
-    for (var i = 1; i <= chitfundcount; i++) {
-      const x = await chitfundfactory.methods.launchedChitfunds(i).call();
-      f.push(x);
-    }
-
-    setFactories(f);
-    console.log(ChitFundFactorycount);
-    console.log(factories);
   };
 
   return (
@@ -185,14 +194,13 @@ const App = () => {
                   render={(props) => (
                     <Fragment>
                       <Home
-                        loadWeb3={loadWeb3}
-                        loadBlockchainData={loadBlockchainData}
                         viewfund={viewfund}
                         bidForJackpot={bidForJackpot}
                         releaseFund={releaseFund}
                         getWinner={getWinner}
                         contribute={contribute}
                         joinFund={joinFund}
+                        factories={factories}
                       />
                       <Footer />
                     </Fragment>
@@ -204,18 +212,24 @@ const App = () => {
                   render={(props) => (
                     <Fragment>
                       <About
-                        loadWeb3={loadWeb3}
-                        loadBlockchainData={loadBlockchainData}
                         createChitFund={createChitFund}
-                        factories={factories}
                         ChitFundFactorycount={ChitFundFactorycount}
                         account={account}
+                        factories={factories}
                       />
                       <Footer />
                     </Fragment>
                   )}
                 />
-
+                <Route
+                  exact
+                  path="/aboutt"
+                  render={(props) => (
+                    <Fragment>
+                      <Aboutt />
+                    </Fragment>
+                  )}
+                />
                 {/* )} */}
               </Switch>
             </div>

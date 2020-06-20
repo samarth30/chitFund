@@ -1,6 +1,6 @@
 import React from "react";
 
-function Loader({ viewfund }) {
+const Loader = ({ viewfund }) => {
   return (
     <div id="preloader-active">
       <div class="preloader d-flex align-items-center justify-content-center">
@@ -13,6 +13,6 @@ function Loader({ viewfund }) {
       </div>
     </div>
   );
-}
+};
 
 export default Loader;
