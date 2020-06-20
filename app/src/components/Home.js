@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 
-function Home({
+const Home = ({
   viewfund,
   joinFund,
   contribute,
   getWinner,
   releaseFund,
   bidForJackpot,
-  loadBlockchainData,
-  loadWeb3,
-}) {
-  useEffect(() => {
-    loadWeb3();
-    loadBlockchainData();
-  }, []);
+  factories,
+  // loadBlockchainData,
+  // loadWeb3,
+}) => {
+  // useEffect(() => {
+  //   loadWeb3();
+  //   loadBlockchainData();
+  // }, []);
 
   const [bidding, SetBidding] = useState("");
   const onChange = (e) => {
@@ -102,6 +103,14 @@ function Home({
                 </div>
               </div>
             </div>
+
+            {/* <ul>
+              <li>hello</li>
+              {console.log(factories)}
+              {factories.forEach((factory) => (
+                <li key={factory.count}>{factory.manager}</li>
+              ))}
+            </ul> */}
 
             {/* <div class="single-slider">
                       <div class="slider-cap-wrapper">
@@ -629,6 +638,6 @@ function Home({
       </main>
     </div>
   );
-}
+};
 
 export default Home;
