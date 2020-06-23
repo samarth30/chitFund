@@ -1,6 +1,7 @@
 import React from "react";
 import Identicon from "identicon.js";
 import { Link } from "react-router-dom";
+import { Fragment, useContext, useEffect } from "react";
 
 const Navbar = ({ account, viewfund }) => {
   return (
@@ -17,12 +18,14 @@ const Navbar = ({ account, viewfund }) => {
                   <div class="main-menu f-right d-none d-lg-block">
                     <nav>
                       <ul id="navigation">
-                        <li class="active">
-                          <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                          <Link to="/about">About</Link>
-                        </li>
+                        <Fragment>
+                          <li class="active">
+                            <Link to="/">Home</Link>
+                          </li>
+                          <li>
+                            <Link to="/about">About</Link>
+                          </li>
+                        </Fragment>
                         <li>
                           <a href="services.html">Services</a>
                         </li>

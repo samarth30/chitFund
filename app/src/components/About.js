@@ -581,44 +581,43 @@ const About = ({
                     </div>
                   </div>
                 </div> */}
-        <h1>+ hello</h1>
-        {/* {factories.map((home) => (
-          <div>{home.name}</div>
-        ))} */}
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {factories.map((factory, key) => {
-              return (
-                <tr key={factory.count.toString()}>
-                  <th scope="row">{factory.count.toString()}</th>
-                  <td>{factory.chitfund}</td>
 
-                  <td>{factory.manager}</td>
-                  <td>
-                    {account !== factory.manager ? (
-                      <button
-                        className="btn btn-primary"
-                        name={factory.manager}
-                        value={factory.manager}
-                      >
-                        Buy
-                      </button>
-                    ) : (
-                      <button className="btn btn-success">Owned</button>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div class="container pt-50 pb-150">
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Manager</th>
+                <th scope="col">ChitFund</th>
+              </tr>
+            </thead>
+            <tbody>
+              {factories.map((factory, key) => {
+                return (
+                  <tr key={factory.count.toString()}>
+                    <th scope="row">{factory.count.toString()}</th>
+                    <td>{factory.chitfund}</td>
+
+                    <td>{factory.manager}</td>
+                    <td>
+                      {account !== factory.manager ? (
+                        <button
+                          className="btn btn-primary"
+                          name={factory.manager}
+                          value={factory.manager}
+                        >
+                          Buy
+                        </button>
+                      ) : (
+                        <button className="btn btn-success">Owned</button>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </main>
     </div>
   );
