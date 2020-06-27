@@ -25,7 +25,9 @@ const App = () => {
   const [chitfundfactory, setChitfundfactory] = useState("");
   const [factories, setFactories] = useState([]);
   const [ChitFundFactorycount, setChitFundFactorycount] = useState(0);
-
+  const [Jackpot, setJackpot] = useState(0);
+  const [NoOfInstallments, setNoOfInstallments] = useState(0);
+  const [FundBalance, setFundBalance] = useState(0);
   useEffect(() => {
     loadWeb3();
     loadBlockchainData();
@@ -67,6 +69,12 @@ const App = () => {
       setChitfund(chitfundd);
 
       const viewFund = await chitfundd.methods.viewFund().call();
+      const jackpot = await web3.utils.fromWei(viewFund[1], "ether");
+      const NoOfinstallments = await web3.utils.fromWei(viewFund[5], "ether");
+      const fundBalance = await web3.utils.fromWei(viewFund[4], "ether");
+      setJackpot(jackpot);
+      setNoOfInstallments(NoOfinstallments);
+      setFundBalance(fundBalance);
       setViewfund(viewFund);
 
       const chitfundcount = await chitFundFactoryy.methods
@@ -104,6 +112,7 @@ const App = () => {
       const x = [...factories];
       console.log(factories);
 
+      // setJackpot(window.web3.utils.fromWei(viewfund[1], "ether"));
       setLoading(false);
     } else {
       window.alert("Chitfund contract not deployed to detected network.");
@@ -201,6 +210,9 @@ const App = () => {
                         contribute={contribute}
                         joinFund={joinFund}
                         factories={factories}
+                        jackpot={Jackpot}
+                        NoOfInstallments={NoOfInstallments}
+                        FundBalance={FundBalance}
                       />
                       <Footer />
                     </Fragment>
