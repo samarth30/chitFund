@@ -8,6 +8,9 @@ const Home = ({
   getWinner,
   releaseFund,
   bidForJackpot,
+  jackpot,
+  NoOfInstallments,
+  FundBalance,
   factories,
   // loadBlockchainData,
   // loadWeb3,
@@ -45,14 +48,51 @@ const Home = ({
                     Small Business Loans For Daily Expenses.
                   </h1>
                   <p data-animation="fadeInLeft" data-delay=".2s">
-                    <span
+                    <div class="flex border-t border-gray-300 py-2 ml-10">
+                      <span class="text-gray-900">Chit Fund Name</span>
+                      <span class="ml-auto text-gray-900">{viewfund[0]}</span>
+                    </div>
+                    <div class="flex border-t border-gray-300 py-2 ml-10">
+                      <span class="text-gray-900">jackpot</span>
+                      <span class="ml-auto text-gray-900">{jackpot} ether</span>
+                    </div>
+                    <div class="flex border-t border-gray-300 py-2 ml-10">
+                      <span class="text-gray-900"> No of Investors </span>
+                      <span class="ml-auto text-gray-900">
+                        {viewfund[3]} count
+                      </span>
+                    </div>
+                    <div class="flex border-t border-gray-300 py-2 ml-10">
+                      <span class="text-gray-900">No of Installments </span>
+                      <span class="ml-auto text-gray-900">
+                        {viewfund[2]} count
+                      </span>
+                    </div>
+                    <div class="flex border-t border-gray-300 py-2 ml-10">
+                      <span class="text-gray-900"> No of Investors Joined</span>
+                      <span class="ml-auto text-gray-900">
+                        {viewfund[6]} count
+                      </span>
+                    </div>
+                    <div class="flex border-t border-gray-300 py-2 ml-10">
+                      <span class="text-gray-900"> Installment Amount </span>
+                      <span class="ml-auto text-gray-900">
+                        {NoOfInstallments} ether
+                      </span>
+                    </div>
+                    <div class="flex border-t border-gray-300 py-2 ml-10">
+                      <span class="text-gray-900">Fund Balance </span>
+                      <span class="ml-auto text-gray-900">
+                        {FundBalance} ether
+                      </span>
+                    </div>
+                    {/* <span
                       style={{
                         color: "#000000",
                       }}
                       class="fontfirst"
                     >
-                      {/* jackpot:
-                      {window.web3.utils.fromWei(viewfund[1], "ether")} ether */}
+                      jackpot : {jackpot} ether
                     </span>{" "}
                     <span
                       style={{
@@ -84,8 +124,7 @@ const Home = ({
                       }}
                       class="fontfirst"
                     >
-                      {/* Installment Amount :
-                      {window.web3.utils.fromWei(viewfund[5], "ether")} ether{" "} */}
+                      Installment Amount :{NoOfInstallments} ether
                     </span>
                     <span
                       style={{
@@ -93,9 +132,8 @@ const Home = ({
                       }}
                       class="fontfirst"
                     >
-                      {/* Fund Balance :
-                      {window.web3.utils.fromWei(viewfund[4], "ether")} ether */}
-                    </span>
+                      Fund Balance :{FundBalance} ether
+                    </span> */}
                   </p>
                 </div>
                 <div class="hero__img">
@@ -253,6 +291,10 @@ const Home = ({
                         join fund
                       </button>
                     </p>
+                    <span class="text-gray-900">
+                      {" "}
+                      No of Investors Joined : {viewfund[6]}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -268,6 +310,10 @@ const Home = ({
                         contribute
                       </button>
                     </p>
+                    <span class="text-gray-900">
+                      {" "}
+                      contribute : {NoOfInstallments}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -283,6 +329,7 @@ const Home = ({
                         getWinner
                       </button>
                     </p>
+                    <span class="text-gray-900">click to choose winner</span>
                   </div>
                 </div>
               </div>
@@ -299,6 +346,7 @@ const Home = ({
                         release fund
                       </button>
                     </p>
+                    <span class="text-gray-900"> Only Manager can do this</span>
                   </div>
                 </div>
               </div>

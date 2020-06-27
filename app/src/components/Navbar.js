@@ -17,7 +17,7 @@ const Navbar = ({ account, viewfund }) => {
                   <div class="main-menu f-right d-none d-lg-block">
                     <nav>
                       <ul id="navigation">
-                        <li class="active">
+                        <li>
                           <Link to="/">Home</Link>
                         </li>
                         <li>
