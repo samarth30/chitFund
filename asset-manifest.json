@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/chitFund/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/chitFund/static/js/main.b85cb62b.chunk.js",
+    "main.js.map": "/chitFund/static/js/main.b85cb62b.chunk.js.map",
+    "runtime-main.js": "/chitFund/static/js/runtime-main.650c8586.js",
+    "runtime-main.js.map": "/chitFund/static/js/runtime-main.650c8586.js.map",
+    "static/css/2.829c9cb5.chunk.css": "/chitFund/static/css/2.829c9cb5.chunk.css",
+    "static/js/2.b0b6d582.chunk.js": "/chitFund/static/js/2.b0b6d582.chunk.js",
+    "static/js/2.b0b6d582.chunk.js.map": "/chitFund/static/js/2.b0b6d582.chunk.js.map",
+    "index.html": "/chitFund/index.html",
+    "precache-manifest.8d4474b2eca0fa288f022704df7d9bf3.js": "/chitFund/precache-manifest.8d4474b2eca0fa288f022704df7d9bf3.js",
+    "service-worker.js": "/chitFund/service-worker.js",
+    "static/css/2.829c9cb5.chunk.css.map": "/chitFund/static/css/2.829c9cb5.chunk.css.map",
+    "static/css/main.5ecd60fb.chunk.css.map": "/chitFund/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.b0b6d582.chunk.js.LICENSE.txt": "/chitFund/static/js/2.b0b6d582.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.650c8586.js",
+    "static/css/2.829c9cb5.chunk.css",
+    "static/js/2.b0b6d582.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.b85cb62b.chunk.js"
+  ]
+}
