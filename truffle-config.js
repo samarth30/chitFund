@@ -22,7 +22,7 @@ const env = require("dotenv/config");
 // const mnemonic = fs.readFileSync(".keys/.secret").toString().trim();
 // const mnemonic = process.env.MNEMONIC;
 const mnemonic = process.env.MNEMONIC;
-const nodeURL = process.env.KOVAN_INFURA;
+const nodeURL = process.env.RINKEBY_INFURA;
 
 module.exports = {
   contracts_build_directory: "./app/src/contracts",
@@ -62,14 +62,15 @@ module.exports = {
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
     // 0x4384e3FF262B493F9690A79D8F5b150D20Eb9C7C
-    kovan: {
+
+    rinkeby: {  //https://ethereum.stackexchange.com/questions/67093/how-to-interact-with-my-rinkeby-contract-via-truffle-console
       provider: () => new HDWalletProvider(mnemonic, nodeURL),
-      network_id: 42, // Ropsten's id
-      gas: 5500000, // Ropsten has a lower block limit than mainnet
+      network_id: 4, // rinkeby id
+      gas: 5500000,
       confirmations: 2, // # of confs to wait between deployments. (default: 0)
       timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
       skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
-    },
+    }
 
     // Useful for private networks
     // private: {
