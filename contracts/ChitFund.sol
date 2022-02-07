@@ -7,38 +7,30 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 
 contract ChitFund {
     using SafeMath for uint256;
-
+    
+    // This are constants once the fund is created
     string public fundName;
     uint256 public jackpot;
-    uint256 public noOfInstallments;
+    uint256 public numOfInstallments;
     uint256 public noOfInvestors;
-    address private manager;
-    uint256 public fundBalance;
+    address public manager;
     uint256 public installmentAmount;
+    
+    // This will be incremented but then remain throughout all of the subsequent rounds of bidding
     uint256 public noOfInvestorsJoined;
-    address payable private winner = address(0);
-    uint256 private winnersBid = 0;
-    uint256 private winnersAmount;
-
-    // string private fundName;
-    // uint256 private jackpot;
-    // uint256 private noOfInstallments;
-    // uint256 private noOfInvestors;
-    // address private manager;
-    // uint256 private fundBalance;
-    // uint256 private installmentAmount;
-    // uint256 private noOfInvestorsJoined;
-    // address payable private winner = address(0);
-    // uint256 private winnersBid = 0;
-    // uint256 private winnersAmount;
+    
+    // These will change between rounds
+    uint256 public fundBalance;
+    uint256 private lowestBidThisRound = 0;
+    address payable private winnerThisRound = address(0);
+    uint256 public currentRound = 1;
 
     struct Investor {
         bool hasJoined;
-        bool gotJackpot;
-        uint256 installementCounter;
-        bool isReadytoInvest;
-        bool canBid;
-        uint256 currentBidPercentage;
+        uint256 installmentCounter;
+        bool isReadyToInvest;
+        bool canBid = false;
+        bool hasWonARound = false;
     }
 
     mapping(address => Investor) public investors;
@@ -56,14 +48,14 @@ contract ChitFund {
     constructor(
         string memory _fundName,
         uint256 _installmentAmount,
-        uint256 _noOfInstallments,
+        uint256 _numOfInstallments,
         uint256 _noOfInvestors
     ) public {
         fundName = _fundName;
-        noOfInstallments = _noOfInstallments;
+        numOfInstallments = _numOfInstallments;
         noOfInvestors = _noOfInvestors;
-        manager = msg.sender;
-        installmentAmount = _installmentAmount * 1e18;
+        manager = msg.sender;  // TODO determine who message.sender is on contract deployment, also consider adding this to constructor to make it configurable?
+        installmentAmount = _installmentAmount * 1e18;  // 1e18 = 1eth, or 10000000000000000 wei
         jackpot = SafeMath.mul(installmentAmount, noOfInvestors);
     }
 
@@ -74,14 +66,13 @@ contract ChitFund {
     function joinFund() public {
         require(
             noOfInvestorsJoined < noOfInvestors,
-            "The fund reached its maximum investors, ply try another fund"
+            "The fund has already reached its maximum investors. Please try another fund"
         );
         require(
-            !investors[msg.sender].hasJoined,
-            "You are already part of the current fund"
+            !investors[msg.sender].hasJoined, "You are already part of the current fund"
         );
         investors[msg.sender].hasJoined = true;
-        investors[msg.sender].isReadytoInvest = true;
+        investors[msg.sender].isReadyToInvest = true;
         noOfInvestorsJoined++;
     }
 
@@ -95,53 +86,58 @@ contract ChitFund {
             "You are not part of the current fund"
         );
         require(
-            investors[msg.sender].isReadytoInvest,
-            "You Can invest after the jackpot is announced"
+            investors[msg.sender].isReadyToInvest,
+            "You have already contributed to this round, you cannot invest until after the jackpot of this round is announced"
         );
-        require(fundBalance < jackpot, "Fund is full");
+        require( investors[msg.sender].installmentCounter < currentRound,
+            "You have already contributed to this round, you cannot invest until after the jackpot of this round is announced"
+        );
+        require(fundBalance < jackpot, "Fund is fully funded for this round. You cannot contribute until the funds have been dispursed to the winning bidder this round.");
         require(
-            investors[msg.sender].installementCounter < noOfInstallments,
-            "You have allready pail all the installments"
+            investors[msg.sender].installmentCounter < numOfInstallments,
+            "You have already paid all the installments in this fund"
         );
-        investors[msg.sender].installementCounter += 1;
-        investors[msg.sender].isReadytoInvest = false;
-        investors[msg.sender].canBid = true;
-
+        installmentCounterinstallmentCounter = installmentCounterinstallmentCounter + 1;
+        investors[msg.sender].isReadyToInvest = false; // has contributed, cannot contribute again until the round is over
+        if (!investors[msg.sender].hasWonARound == true) {
+            investors[msg.sender].canBid = true;
+        }
         fundBalance += msg.value;
     }
 
     function bidForJackpot(uint256 _bid) public {
         require(
-            investors[msg.sender].canBid,
-            "You were a winner in previous biddings"
+            investors[msg.sender].hasWonARound,
+            "You were a winner in a previous bid"
         );
-        investors[msg.sender].currentBidPercentage = _bid;
-        investors[msg.sender].isReadytoInvest = true;
-        // winnersBid = _bid;
-        if (_bid > winnersBid) {
-            winner = msg.sender;
-            winnersBid = _bid;
+        require(
+            investors[msg.sender].canBid == true, "You cannot bid until you have contributed for this round, and you may only bid once per round"
+        );
+        investors[msg.sender].isReadyToInvest = true;
+        if (_bid > 0 && _bid < lowestBidThisRound) {
+            winnerThisRound = msg.sender;
+            lowestBidThisRound = _bid;
         }
+        investors[msg.sender].canBid = false;
     }
 
-    function getWinner() public view returns (address) {
-        return winner;
-    }
+   // function calculateWinnersJackpot(address _winner) private returns (uint256) {  // TODO: why the math here? why not jackpot just be lowest bid?
+    //    uint256 percentage = investors[_winner].currentBidPercentage;
+    //    uint256 x = SafeMath.mul(fundBalance, percentage);
+    //    uint256 y = SafeMath.div(x, 100);  //TODO what is this calc doing? Throwing this away for now
+    //    winnersAmount = fundBalance - y;
+    //    investors[_winner].canBid = false;
+   //     return winnersAmount;
+ //   }
 
-    function calculateWinnesJackpot(address _winner) private returns (uint256) {
-        uint256 percentage = investors[_winner].currentBidPercentage;
-        uint256 x = SafeMath.mul(fundBalance, percentage);
-        uint256 y = SafeMath.div(x, 100);
-        winnersAmount = fundBalance - y;
-        investors[_winner].canBid = false;
-        return winnersAmount;
-    }
 
     function releaseFund() public payable isManager {
-        require(fundBalance == jackpot, "Contributions required");
-        uint256 _winnersAmount = calculateWinnesJackpot(winner);
-        winner.transfer(_winnersAmount);
-        fundBalance = fundBalance - _winnersAmount;
+        require(fundBalance >= jackpot, "Cannot release funds for this round until all investor contributions have been received.");        
+        winner.transfer(currentRoundLowestBid);  //TODO  look up transfer function later
+        investors[winnerThisRound].hasWonARound = true;
+        fundBalance = fundBalance - currentRoundLowestBid;
+        currentRound = currentRound + 1;
+        lowestBidThisRound = 0;
     }
 
     function viewFund()
@@ -150,21 +146,30 @@ contract ChitFund {
         returns (
             string memory _fundName,
             uint256 _jackpot,
-            uint256 _noOfInstallments,
+            uint256 _numOfInstallments,
             uint256 _noOfInvestors,
             uint256 _fundBalance,
             uint256 _installmentAmount,
             uint256 _noOfInvestorsJoined
+            uint256 _currentRound
         )
     {
         return (
             fundName,
             jackpot,
-            noOfInstallments,
+            numOfInstallments,
             noOfInvestors,
             fundBalance,
             installmentAmount,
-            noOfInvestorsJoined
+            noOfInvestorsJoined,
+            currentRound
         );
     }
+
+
+    // Some features to consider for later if time allows
+    //TODO make a function to destroy fund
+    //TODO make a function to kick member from fund, update variables to allow someone else to take their place
+    //TODO make a function to reset the fund back to 0 assuming all of the installments and jackpots have been paid.
+    //TODO make a function to return any funds left over after the last round to all members equally?
 }
