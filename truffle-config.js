@@ -18,11 +18,13 @@
  *
  */
 const HDWalletProvider = require("@truffle/hdwallet-provider");
-const env = require("dotenv/config");
+//const env = require("dotenv/config");
+
+const env = require('dotenv').config();
 // const mnemonic = fs.readFileSync(".keys/.secret").toString().trim();
 // const mnemonic = process.env.MNEMONIC;
-const mnemonic = process.env.MNEMONIC;
-const nodeURL = process.env.RINKEBY_INFURA;
+const rinkebyMnemonic = process.env.MNEMONIC;
+const infuraUrl = process.env.RINKEBY_INFURA;
 
 module.exports = {
   contracts_build_directory: "./app/src/contracts",
@@ -59,17 +61,16 @@ module.exports = {
     // websockets: true        // Enable EventEmitter interface for web3 (default: false)
     // },
 
-    // Useful for deploying to a public network.
-    // NB: It's important to wrap the provider as a function.
-    // 0x4384e3FF262B493F9690A79D8F5b150D20Eb9C7C
-
-    rinkeby: {  //https://ethereum.stackexchange.com/questions/67093/how-to-interact-with-my-rinkeby-contract-via-truffle-console
-      provider: () => new HDWalletProvider(mnemonic, nodeURL),
-      network_id: 4, // rinkeby id
-      gas: 5500000,
-      confirmations: 2, // # of confs to wait between deployments. (default: 0)
-      timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
-      skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
+    // For deploying to a public network.
+    rinkeby: {
+      provider: () =>
+        new HDWalletProvider({
+          mnemonic: {
+            phrase: rinkebyMnemonic
+          },
+          providerOrUrl: infuraUrl
+        }),
+      network_id: '4',
     }
 
     // Useful for private networks

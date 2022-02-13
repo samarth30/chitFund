@@ -21,7 +21,7 @@ contract ChitFund {
     
     // These will change between rounds
     uint256 public fundBalance;
-    uint256 private lowestBidThisRound = 0;
+    uint256 private currentRoundLowestBid = 0;
     address payable private winnerThisRound = address(0);
     uint256 public currentRound = 1;
 
@@ -29,8 +29,8 @@ contract ChitFund {
         bool hasJoined;
         uint256 installmentCounter;
         bool isReadyToInvest;
-        bool canBid = false;
-        bool hasWonARound = false;
+        bool canBid;
+        bool hasWonARound;
     }
 
     mapping(address => Investor) public investors;
@@ -73,6 +73,8 @@ contract ChitFund {
         );
         investors[msg.sender].hasJoined = true;
         investors[msg.sender].isReadyToInvest = true;
+        investors[msg.sender].canBid = false;
+        investors[msg.sender].hasWonARound = false;
         noOfInvestorsJoined++;
     }
 
@@ -97,7 +99,7 @@ contract ChitFund {
             investors[msg.sender].installmentCounter < numOfInstallments,
             "You have already paid all the installments in this fund"
         );
-        installmentCounterinstallmentCounter = installmentCounterinstallmentCounter + 1;
+        investors[msg.sender].installmentCounter = investors[msg.sender].installmentCounter + 1;
         investors[msg.sender].isReadyToInvest = false; // has contributed, cannot contribute again until the round is over
         if (!investors[msg.sender].hasWonARound == true) {
             investors[msg.sender].canBid = true;
@@ -114,9 +116,9 @@ contract ChitFund {
             investors[msg.sender].canBid == true, "You cannot bid until you have contributed for this round, and you may only bid once per round"
         );
         investors[msg.sender].isReadyToInvest = true;
-        if (_bid > 0 && _bid < lowestBidThisRound) {
+        if (_bid > 0 && _bid < currentRoundLowestBid) {
             winnerThisRound = msg.sender;
-            lowestBidThisRound = _bid;
+            currentRoundLowestBid = _bid;
         }
         investors[msg.sender].canBid = false;
     }
@@ -133,11 +135,11 @@ contract ChitFund {
 
     function releaseFund() public payable isManager {
         require(fundBalance >= jackpot, "Cannot release funds for this round until all investor contributions have been received.");        
-        winner.transfer(currentRoundLowestBid);  //TODO  look up transfer function later
+        winnerThisRound.transfer(currentRoundLowestBid);  //TODO  look up transfer function later
         investors[winnerThisRound].hasWonARound = true;
         fundBalance = fundBalance - currentRoundLowestBid;
         currentRound = currentRound + 1;
-        lowestBidThisRound = 0;
+        currentRoundLowestBid = 0;
     }
 
     function viewFund()
@@ -150,7 +152,7 @@ contract ChitFund {
             uint256 _noOfInvestors,
             uint256 _fundBalance,
             uint256 _installmentAmount,
-            uint256 _noOfInvestorsJoined
+            uint256 _noOfInvestorsJoined,
             uint256 _currentRound
         )
     {
