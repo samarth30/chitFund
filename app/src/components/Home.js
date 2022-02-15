@@ -96,6 +96,28 @@ const Home = ({
               </div>
             </div>
 
+            <div class="container pt-50">
+             <form onSubmit={onsubmit}>
+              <div className="form-group">
+                <input
+                id="bidding"
+                type="text"
+                className="form-control"
+                placeholder="bidding price"
+                name="bidding"
+                value={bidding}
+                onChange={onChange}
+                required
+                />
+              </div>
+             <div style={{ position: "absolute", left: "43%" }}>
+              <button type="submit" className="btn btn-primary">
+                Bid For Jackpot
+              </button>
+              </div>
+              </form>
+              </div>
+
             {/* <ul>
               <li>hello</li>
               {console.log(factories)}
