@@ -20,6 +20,8 @@ const App = () => {
   const [Loading, setLoading] = useState(true);
   const [Chitfund, setChitfund] = useState({});
   const [viewfund, setViewfund] = useState([]);
+  const [viewInvestor, setViewInvestor] = useState([]);
+  const [viewIsManager, setViewIsManager] = useState([]);
   const [fundName, setFundName] = useState("");
   const [account, setAccount] = useState("");
   const [chitfundfactory, setChitfundfactory] = useState("");
@@ -55,7 +57,7 @@ const App = () => {
     const networkData = ChitFund.networks[networkId];
     const networkData2 = ChitFundFactory.networks[networkId];
     if (networkData) {
-      const chitfundd = new web3.eth.Contract(
+      const chitfund = new web3.eth.Contract(
         ChitFund.abi,
         networkData.address
       );
@@ -66,9 +68,11 @@ const App = () => {
       );
 
       setChitfundfactory(chitFundFactoryy);
-      setChitfund(chitfundd);
+      setChitfund(chitfund);
 
-      const viewFund = await chitfundd.methods.viewFund().call();
+      const viewInvestor = await chitfund.methods.viewInvestor().call();
+      const viewIsManager = await chitfund.methods.checkIfManager().call();
+      const viewFund = await chitfund.methods.viewFund().call();
       const jackpot = await web3.utils.fromWei(viewFund[1], "ether");
       const NoOfinstallments = await web3.utils.fromWei(viewFund[5], "ether");
       const fundBalance = await web3.utils.fromWei(viewFund[4], "ether");
@@ -76,6 +80,8 @@ const App = () => {
       setNoOfInstallments(NoOfinstallments);
       setFundBalance(fundBalance);
       setViewfund(viewFund);
+      setViewInvestor(viewInvestor);
+      setViewIsManager(viewIsManager);
 
       const chitfundcount = await chitFundFactoryy.methods
         .ChitfundCount()
@@ -124,7 +130,7 @@ const App = () => {
     Chitfund.methods
       .joinFund()
       .send({ from: account })
-      .once("recepient", (recepient) => {
+      .once("recipient", (recipient) => {
         setLoading(false);
       });
   };
@@ -134,7 +140,7 @@ const App = () => {
     Chitfund.methods
       .contribute()
       .send({ from: account, value: 1000000000000000000 })
-      .once("recepient", (recepient) => {
+      .once("recipient", (recipient) => {
         setLoading(false);
       });
   };
@@ -144,7 +150,7 @@ const App = () => {
     Chitfund.methods
       .getWinner()
       .send({ from: account })
-      .once("recepient", (recepient) => {
+      .once("recipient", (recipient) => {
         setLoading(false);
       });
   };
@@ -154,7 +160,7 @@ const App = () => {
     Chitfund.methods
       .releaseFund()
       .send({ from: account })
-      .once("recepient", (recepient) => {
+      .once("recipient", (recipient) => {
         setLoading(false);
       });
   };
@@ -164,7 +170,7 @@ const App = () => {
     Chitfund.methods
       .bidForJackpot(id)
       .send({ from: account })
-      .once("recepient", (recepient) => {
+      .once("recipient", (recipient) => {
         setLoading(false);
       });
   };
@@ -178,7 +184,7 @@ const App = () => {
     chitfundfactory.methods
       .createFund(name, amount, installments, participants)
       .send({ from: account })
-      .once("recepient", async (recepient) => {
+      .once("recipient", async (recipient) => {
         // await chitfundfactory.launchedChitfunds().sendTransaction();
 
         setLoading(false);
@@ -188,7 +194,7 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        <Navbar account={account} viewfund={viewfund} />
+        <Navbar account={account} viewfund={viewfund} viewInvestor={viewInvestor} viewIsManager={viewIsManager} />
         <div className="container-fluid mt-5">
           <div className="row">
             <div>
@@ -204,6 +210,8 @@ const App = () => {
                     <Fragment>
                       <Home
                         viewfund={viewfund}
+                        viewInvestor={viewInvestor}
+                        viewIsManager={viewIsManager}
                         bidForJackpot={bidForJackpot}
                         releaseFund={releaseFund}
                         getWinner={getWinner}

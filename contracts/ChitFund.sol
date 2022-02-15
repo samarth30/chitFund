@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 contract ChitFund {
     using SafeMath for uint256;
     
-    // This are constants once the fund is created
+    // These are constants once the fund is created
     string public fundName;
     uint256 public jackpot;
     uint256 public numOfInstallments;
@@ -21,7 +21,7 @@ contract ChitFund {
     
     // These will change between rounds
     uint256 public fundBalance;
-    uint256 private currentRoundLowestBid = 0;
+    uint256 public currentRoundLowestBid = 0; //TODO maybe make private?, want public now for debugging
     address payable private winnerThisRound = address(0);
     uint256 public currentRound = 1;
 
@@ -34,16 +34,6 @@ contract ChitFund {
     }
 
     mapping(address => Investor) public investors;
-
-    modifier isManager() {
-        require(msg.sender == manager, "Only Manager ");
-        _;
-    }
-
-    function checkManager() public view returns (bool) {
-        require(msg.sender == manager, "Only Manager ");
-        return true;
-    }
 
     constructor(
         string memory _fundName,
@@ -59,9 +49,18 @@ contract ChitFund {
         jackpot = SafeMath.mul(installmentAmount, noOfInvestors);
     }
 
-    // function getinstallmentAmount() public view returns (uint _amount) {
-    //   return installmentAmount;
-    // }
+    modifier isManager() {
+        require(msg.sender == manager, "Only the manager can access this function");
+        _;
+    }
+
+    function checkIfManager() public view returns (bool) {
+        if(msg.sender == manager){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     function joinFund() public {
         require(
@@ -153,7 +152,9 @@ contract ChitFund {
             uint256 _fundBalance,
             uint256 _installmentAmount,
             uint256 _noOfInvestorsJoined,
-            uint256 _currentRound
+            uint256 _currentRound,
+            address _manager,
+            uint256 _currentRoundLowestBid
         )
     {
         return (
@@ -164,7 +165,29 @@ contract ChitFund {
             fundBalance,
             installmentAmount,
             noOfInvestorsJoined,
-            currentRound
+            currentRound,
+            manager,
+            currentRoundLowestBid
+        );
+    }
+
+    function viewInvestor()
+        public
+        view
+        returns (
+            bool _hasJoined,
+            uint256 _installmentCounter,
+            bool _isReadyToInvest,
+            bool _canBid,
+            bool _hasWonARound
+        )
+    {
+        return (
+            investors[msg.sender].hasJoined,
+            investors[msg.sender].installmentCounter,
+            investors[msg.sender].isReadyToInvest,
+            investors[msg.sender].canBid,
+            investors[msg.sender].hasWonARound
         );
     }
 

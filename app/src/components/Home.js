@@ -3,6 +3,8 @@ import Web3 from "web3";
 
 const Home = ({
   viewfund,
+  viewInvestor,
+  viewIsManager,
   joinFund,
   contribute,
   getWinner,
@@ -312,7 +314,7 @@ const Home = ({
                     </p>
                     <span class="text-gray-900">
                       {" "}
-                      contribute : {NoOfInstallments}
+                      contribute to round : {NoOfInstallments}
                     </span>
                   </div>
                 </div>
@@ -350,6 +352,161 @@ const Home = ({
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="services-area pt-50 pb-50"
+          data-background="assets/img/gallery/section_bg02.jpg"
+        >
+          <div class="container">
+            {/* <div class="row justify-content-center">
+                      <div class="col-lg-6 col-md-10">
+                        <div class="section-tittle text-center mb-80">
+                          <span>Services that we are providing</span>
+                          <h2>High Performance Services For All Industries.</h2>
+                        </div>
+                      </div>
+                    </div> */}
+            <div class="row">
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center">
+                  <div class="cat-icon">
+                    <span class="flaticon-work"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>JOINED FUND</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                      {" "}
+                      Joined : {String(viewInvestor[0])}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-loan"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>InstallmentCounter</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                      {" "}
+                      Installments Made : {viewInvestor[1]}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-loan-1"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>Ready To Invest</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                        {" "}
+                      Is Ready To Invest : {String(viewInvestor[2])}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-like"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>Can Bid</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                     {" "}
+                      Can Bid : {String(viewInvestor[3])}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-like"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>Has Won A round</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                     {" "}
+                      Has Won A Round : {String(viewInvestor[4])}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-like"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>Are Manager</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                     {" "}
+                      Are You Manager : {String(viewIsManager)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-like"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>Lowest Bid</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                     {" "}
+                      Lowest Bid This Round : {String(viewfund[9])}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-like"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>Manager</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                     {" "}
+                      Manager Is : {String(viewfund[8])}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
