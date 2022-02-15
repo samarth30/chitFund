@@ -180,7 +180,7 @@ const Home = ({
                     </p>
                     <span class="text-gray-900">
                       {" "}
-                      contribute to round : {NoOfInstallments}
+                      contribute to round : {viewfund[7]}
                     </span>
                   </div>
                 </div>
