@@ -53,7 +53,7 @@ const App = () => {
 
     const accounts = await web3.eth.getAccounts();
     setAccount(accounts[0]);
-    console.log(account);
+    console.log(account); // for some reason only available in functions
     console.log(accounts);
     console.log(accounts[0]);
     const networkId = await web3.eth.net.getId();
@@ -73,7 +73,7 @@ const App = () => {
       setChitfundfactory(chitFundFactoryy);
       setChitfund(chitfund);
 
-      const viewInvestor = await chitfund.methods.viewInvestor().call();
+      const viewInvestor = await chitfund.methods.viewInvestor().call({from: accounts[0]});
       const viewIsManager = await chitfund.methods.checkIfManager().call({from: accounts[0]});
       const viewFund = await chitfund.methods.viewFund().call();
       const jackpot = await web3.utils.fromWei(viewFund[1], "ether");
@@ -162,6 +162,7 @@ const App = () => {
 
   const releaseFund = () => {
     setLoading(true);
+    console.log(account);
     Chitfund.methods
       .releaseFund()
       .send({ from: account })
@@ -172,6 +173,7 @@ const App = () => {
 
   const bidForJackpot = (id) => {
     setLoading(true);
+    console.log(account);
     Chitfund.methods
       .bidForJackpot(id)
       .send({ from: account })
