@@ -114,22 +114,12 @@ contract ChitFund {
         require(
             investors[msg.sender].canBid == true, "You cannot bid until you have contributed for this round, and you may only bid once per round"
         );
-        investors[msg.sender].isReadyToInvest = true;
         if (_bid > 0 && _bid < fundBalance) { // bids must be less than the total balance of the fund.
             winnerThisRound = msg.sender;
             currentRoundLowestBid = _bid;
         }
         investors[msg.sender].canBid = false;
     }
-
-   // function calculateWinnersJackpot(address _winner) private returns (uint256) {  // TODO: why the math here? why not jackpot just be lowest bid?
-    //    uint256 percentage = investors[_winner].currentBidPercentage;
-    //    uint256 x = SafeMath.mul(fundBalance, percentage);
-    //    uint256 y = SafeMath.div(x, 100);  //TODO what is this calc doing? Throwing this away for now
-    //    winnersAmount = fundBalance - y;
-    //    investors[_winner].canBid = false;
-   //     return winnersAmount;
- //   }
 
 
     function releaseFund() public payable isManager {

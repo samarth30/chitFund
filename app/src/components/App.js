@@ -150,16 +150,6 @@ const App = () => {
       });
   };
 
-  const getWinner = () => {
-    setLoading(true);
-    Chitfund.methods
-      .getWinner()
-      .send({ from: account })
-      .once("recipient", (recipient) => {
-        setLoading(false);
-      });
-  };
-
   const releaseFund = () => {
     setLoading(true);
     console.log(account);
@@ -221,7 +211,6 @@ const App = () => {
                         viewIsManager={viewIsManager}
                         bidForJackpot={bidForJackpot}
                         releaseFund={releaseFund}
-                        getWinner={getWinner}
                         contribute={contribute}
                         joinFund={joinFund}
                         factories={factories}
