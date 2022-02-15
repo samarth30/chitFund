@@ -3,7 +3,7 @@ import Web3 from "web3";
 
 const Home = ({
   viewfund,
-  viewInvestor,
+  viewinvestor,
   viewIsManager,
   joinFund,
   contribute,
@@ -382,7 +382,7 @@ const Home = ({
                     </p>
                     <span class="text-gray-900">
                       {" "}
-                      Joined : {String(viewInvestor[0])}
+                      Joined : {String(viewinvestor[0])}
                     </span>
                   </div>
                 </div>
@@ -399,7 +399,7 @@ const Home = ({
                     </p>
                     <span class="text-gray-900">
                       {" "}
-                      Installments Made : {viewInvestor[1]}
+                      Installments Made : {viewinvestor[1]}
                     </span>
                   </div>
                 </div>
@@ -416,7 +416,7 @@ const Home = ({
                     </p>
                     <span class="text-gray-900">
                         {" "}
-                      Is Ready To Invest : {String(viewInvestor[2])}
+                      Is Ready To Invest : {String(viewinvestor[2])}
                     </span>
                   </div>
                 </div>
@@ -433,7 +433,7 @@ const Home = ({
                     </p>
                     <span class="text-gray-900">
                      {" "}
-                      Can Bid : {String(viewInvestor[3])}
+                      Can Bid : {String(viewinvestor[3])}
                     </span>
                   </div>
                 </div>
@@ -450,7 +450,7 @@ const Home = ({
                     </p>
                     <span class="text-gray-900">
                      {" "}
-                      Has Won A Round : {String(viewInvestor[4])}
+                      Has Won A Round : {String(viewinvestor[4])}
                     </span>
                   </div>
                 </div>
@@ -489,6 +489,7 @@ const Home = ({
                   </div>
                 </div>
               </div>
+
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="single-cat text-center mb-50">
                   <div class="cat-icon">
@@ -502,6 +503,24 @@ const Home = ({
                     <span class="text-gray-900">
                      {" "}
                       Manager Is : {String(viewfund[8])}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-like"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>investor</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                     {" "}
+                      investor : {JSON.stringify(viewinvestor)}
                     </span>
                   </div>
                 </div>

@@ -20,7 +20,7 @@ const App = () => {
   const [Loading, setLoading] = useState(true);
   const [Chitfund, setChitfund] = useState({});
   const [viewfund, setViewfund] = useState([]);
-  const [viewInvestor, setViewInvestor] = useState([]);
+  const [viewinvestor, setViewInvestor] = useState([]);
   const [viewIsManager, setViewIsManager] = useState([]);
   const [fundName, setFundName] = useState("");
   const [account, setAccount] = useState("");
@@ -53,6 +53,7 @@ const App = () => {
 
     const accounts = await web3.eth.getAccounts();
     setAccount(accounts[0]);
+    console.log(account);
     console.log(accounts);
     console.log(accounts[0]);
     const networkId = await web3.eth.net.getId();
@@ -129,6 +130,7 @@ const App = () => {
 
   const joinFund = () => {
     setLoading(true);
+    console.log(account);
     Chitfund.methods
       .joinFund()
       .send({ from: account })
@@ -139,6 +141,7 @@ const App = () => {
 
   const contribute = () => {
     setLoading(true);
+    console.log(account);
     Chitfund.methods
       .contribute()
       .send({ from: account, value: 1000000000000000000 })
@@ -196,7 +199,7 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        <Navbar account={account} viewfund={viewfund} viewInvestor={viewInvestor} viewIsManager={viewIsManager} />
+        <Navbar account={account} viewfund={viewfund} viewinvestor={viewinvestor} viewIsManager={viewIsManager} />
         <div className="container-fluid mt-5">
           <div className="row">
             <div>
@@ -212,7 +215,7 @@ const App = () => {
                     <Fragment>
                       <Home
                         viewfund={viewfund}
-                        viewInvestor={viewInvestor}
+                        viewinvestor={viewinvestor}
                         viewIsManager={viewIsManager}
                         bidForJackpot={bidForJackpot}
                         releaseFund={releaseFund}
