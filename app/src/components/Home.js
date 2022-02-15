@@ -3,6 +3,8 @@ import Web3 from "web3";
 
 const Home = ({
   viewfund,
+  viewinvestor,
+  viewIsManager,
   joinFund,
   contribute,
   getWinner,
@@ -86,54 +88,6 @@ const Home = ({
                         {FundBalance} ether
                       </span>
                     </div>
-                    {/* <span
-                      style={{
-                        color: "#000000",
-                      }}
-                      class="fontfirst"
-                    >
-                      jackpot : {jackpot} ether
-                    </span>{" "}
-                    <span
-                      style={{
-                        color: "#000000",
-                      }}
-                      class="fontfirst"
-                    >
-                      No of Installments :{viewfund[2]}
-                    </span>
-                    <span
-                      style={{
-                        color: "#000000",
-                      }}
-                      class="fontfirst"
-                    >
-                      No of Investors :{viewfund[3]}
-                    </span>
-                    <span
-                      style={{
-                        color: "#000000",
-                      }}
-                      class="fontfirst"
-                    >
-                      No of Investors Joined :{viewfund[6]}
-                    </span>
-                    <span
-                      style={{
-                        color: "#000000",
-                      }}
-                      class="fontfirst"
-                    >
-                      Installment Amount :{NoOfInstallments} ether
-                    </span>
-                    <span
-                      style={{
-                        color: "#000000",
-                      }}
-                      class="fontfirst"
-                    >
-                      Fund Balance :{FundBalance} ether
-                    </span> */}
                   </p>
                 </div>
                 <div class="hero__img">
@@ -141,6 +95,28 @@ const Home = ({
                 </div>
               </div>
             </div>
+
+            <div class="container pt-50">
+             <form onSubmit={onsubmit}>
+              <div className="form-group">
+                <input
+                id="bidding"
+                type="text"
+                className="form-control"
+                placeholder="bidding price"
+                name="bidding"
+                value={bidding}
+                onChange={onChange}
+                required
+                />
+              </div>
+             <div style={{ position: "absolute", left: "43%" }}>
+              <button type="submit" className="btn btn-primary">
+                Bid For Jackpot
+              </button>
+              </div>
+              </form>
+              </div>
 
             {/* <ul>
               <li>hello</li>
@@ -163,121 +139,13 @@ const Home = ({
                       </div>
                     </div> */}
           </div>
-          {/* 
-                  <div class="slider-footer section-bg d-none d-sm-block">
-                    <div class="footer-wrapper">
-                      <div class="single-caption">
-                        <div class="single-img">
-                          <img src="assets/img/hero/hero_footer.png" alt="" />
-                        </div>
-                      </div>
-
-                      <div class="single-caption">
-                        <div class="caption-icon">
-                          <span class="flaticon-clock"></span>
-                        </div>
-                        <div class="caption">
-                          <p>Quick & Easy Loan</p>
-                          <p>Approvals</p>
-                        </div>
-                      </div>
-                      <div class="single-caption">
-                        <div class="caption-icon">
-                          <span class="flaticon-like"></span>
-                        </div>
-                        <div class="caption">
-                          <p>Quick & Easy Loan</p>
-                          <p>Approvals</p>
-                        </div>
-                      </div>
-                      <div class="single-caption">
-                        <div class="caption-icon">
-                          <span class="flaticon-money"></span>
-                        </div>
-                        <div class="caption">
-                          <p>Quick & Easy Loan</p>
-                          <p>Approvals</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
-        </div>
-        {/* 
-                <div class="about-low-area section-padding2">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-lg-6 col-md-12">
-                        <div class="about-caption mb-50">
-                          <div class="section-tittle mb-35">
-                            <span>About Our Company</span>
-                            <h2>Detials of our funders of the comapany</h2>
-                          </div>
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit, oeiusmod tempor incididunt ut labore et dolore
-                            magna aliqua. Ut eniminixm, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip
-                            exeaoauat. Duis aute irure dolor in reprehe.
-                          </p>
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit, oeiusmod tempor incididunt ut labore et dolore
-                            magna aliq.
-                          </p>
-                          <a href="apply.html" class="btn">
-                            Apply for Loan
-                          </a>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-md-12">
-                        <div class="about-img">
-                          <div class="about-font-img d-none d-lg-block">
-                            <img src="assets/img/gallery/about2.png" alt="" />
-                          </div>
-                          <div class="about-back-img">
-                            <img src="assets/img/gallery/about1.png" alt="" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
-
-        <div class="container pt-50">
-          <form onSubmit={onsubmit}>
-            <div className="form-group">
-              <input
-                id="bidding"
-                type="text"
-                className="form-control"
-                placeholder="bidding price"
-                name="bidding"
-                value={bidding}
-                onChange={onChange}
-                required
-              />
-            </div>
-            <div style={{ position: "absolute", left: "43%" }}>
-              <button type="submit" className="btn btn-primary">
-                Bid For Jackpot
-              </button>
-            </div>
-          </form>
         </div>
 
         <div
           class="services-area pt-50 pb-50"
           data-background="assets/img/gallery/section_bg02.jpg"
-        >
+          >
           <div class="container">
-            {/* <div class="row justify-content-center">
-                      <div class="col-lg-6 col-md-10">
-                        <div class="section-tittle text-center mb-80">
-                          <span>Services that we are providing</span>
-                          <h2>High Performance Services For All Industries.</h2>
-                        </div>
-                      </div>
-                    </div> */}
             <div class="row">
               <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="single-cat text-center">
@@ -312,24 +180,8 @@ const Home = ({
                     </p>
                     <span class="text-gray-900">
                       {" "}
-                      contribute : {NoOfInstallments}
+                      contribute to round : {viewfund[7]}
                     </span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="single-cat text-center mb-50">
-                  <div class="cat-icon">
-                    <span class="flaticon-loan-1"></span>
-                  </div>
-                  <div class="cat-cap">
-                    <h5>GET WINNER</h5>
-                    <p>
-                      <button onClick={getWinner} className="btn btn-primary">
-                        getWinner
-                      </button>
-                    </p>
-                    <span class="text-gray-900">click to choose winner</span>
                   </div>
                 </div>
               </div>
@@ -354,335 +206,172 @@ const Home = ({
           </div>
         </div>
 
-        {/* <div class="support-company-area section-padding3 fix">
-                  <div class="container">
-                    <div class="row align-items-center">
-                      <div class="col-xl-6 col-lg-6">
-                        <div class="support-location-img mb-50">
-                          <img src="assets/img/gallery/single2.jpg" alt="" />
-                          <div class="support-img-cap">
-                            <span>Since 1992</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xl-6 col-lg-6">
-                        <div class="right-caption">
-                          <div class="section-tittle">
-                            <span>Why Choose Our Company</span>
-                            <h2>We Promise Sustainable Future For You.</h2>
-                          </div>
-                          <div class="support-caption">
-                            <form onSubmit={onsubmit}>
-                              <div className="form-group">
-                                <input
-                                  id="bidding"
-                                  type="text"
-                                  className="form-control"
-                                  placeholder="bidding price"
-                                  name="bidding"
-                                  value={bidding}
-                                  onChange={onChange}
-                                  required
-                                />
-                              </div>
-                              <button type="submit" className="btn btn-primary">
-                                Bid For Jackpot
-                              </button>
-                            </form>
-
-                            <div class="select-suport-items pt-2">
-                              <label class="single-items">
-                                Aorem ipsum dgolor sitnfd amet dfgbn fbsdg
-                                <input
-                                  type="checkbox"
-                                  checked="checked active"
-                                />
-                                <span class="checkmark"></span>
-                              </label>
-                              <label class="single-items">
-                                Consectetur adipisicing bfnelit, sedb dvbnfo
-                                <input
-                                  type="checkbox"
-                                  checked="checked active"
-                                />
-                                <span class="checkmark"></span>
-                              </label>
-                              <label class="single-items">
-                                Eiusmod tempor incididunt vmgldupout labore
-                                <input
-                                  type="checkbox"
-                                  checked="checked active"
-                                />
-                                <span class="checkmark"></span>
-                              </label>
-                              <label class="single-items">
-                                Admkde mibvnim veniam, quivds cnostrud.
-                                <input
-                                  type="checkbox"
-                                  checked="checked active"
-                                />
-                                <span class="checkmark"></span>
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+        <div
+          class="services-area pt-50 pb-50"
+          data-background="assets/img/gallery/section_bg02.jpg"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center">
+                  <div class="cat-icon">
+                    <span class="flaticon-work"></span>
                   </div>
-                </div> */}
-        {/* team  */}
-        {/* <div
-                  class="application-area pt-150 pb-140"
-                  data-background="assets/img/gallery/section_bg03.jpg"
-                >
-                  <div class="container">
-                    <div class="row justify-content-center">
-                      <div class="col-lg-6 col-md-10">
-                        <div class="section-tittle section-tittle2 text-center mb-45">
-                          <span>Apply in Three Easy Steps</span>
-                          <h2>
-                            Easy Application Process For Any Types of Loan
-                          </h2>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row justify-content-center">
-                      <div class="col-lg-9 col-xl-8">
-                        <form action="#" class="search-box">
-                          <div class="select-form">
-                            <div class="select-itms">
-                              <select name="select" id="select1">
-                                <option value="">Select Amount</option>
-                                <option value="">$120</option>
-                                <option value="">$700</option>
-                                <option value="">$750</option>
-                                <option value="">$250</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="select-form">
-                            <div class="select-itms">
-                              <select name="select" id="select1">
-                                <option value="">Duration Month</option>
-                                <option value="">7 Days</option>
-                                <option value="">10 Days</option>
-                                <option value="">14 Days Days</option>
-                                <option value="">20 Days</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="input-form">
-                            <input type="text" placeholder="Return Amount" />
-                          </div>
-                          <div class="search-form">
-                            <a href="apply.html">Apply for Loan</a>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
+                  <div class="cat-cap">
+                    <h5>JOINED FUND</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                      {" "}
+                      Joined : {String(viewinvestor[0])}
+                    </span>
                   </div>
-                </div> */}
-
-        {/* <div class="team-area section-padding30">
-                  <div class="container">
-                    <div class="row justify-content-center">
-                      <div class="cl-xl-7 col-lg-8 col-md-10">
-                        <div class="section-tittle text-center mb-70">
-                          <span>Our Loan Section Team Mambers</span>
-                          <h2>Take a look to our professional team members.</h2>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-team mb-30">
-                          <div class="team-img">
-                            <img
-                              src="assets/img/gallery/home_blog1.png"
-                              alt=""
-                            />
-
-                            <div class="team-social">
-                              <li>
-                                <a href="#">
-                                  <i class="fab fa-facebook-f"></i>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <i class="fab fa-twitter"></i>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <i class="fas fa-globe"></i>
-                                </a>
-                              </li>
-                            </div>
-                          </div>
-                          <div class="team-caption">
-                            <h3>
-                              <a href="#">Bruce Roberts</a>
-                            </h3>
-                            <p>Volunteer leader</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-team mb-30">
-                          <div class="team-img">
-                            <img
-                              src="assets/img/gallery/home_blog2.png"
-                              alt=""
-                            />
-
-                            <div class="team-social">
-                              <li>
-                                <a href="#">
-                                  <i class="fab fa-facebook-f"></i>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <i class="fab fa-twitter"></i>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <i class="fas fa-globe"></i>
-                                </a>
-                              </li>
-                            </div>
-                          </div>
-                          <div class="team-caption">
-                            <h3>
-                              <a href="#">Bruce Roberts</a>
-                            </h3>
-                            <p>Volunteer leader</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-team mb-30">
-                          <div class="team-img">
-                            <img
-                              src="assets/img/gallery/home_blog3.png"
-                              alt=""
-                            />
-
-                            <div class="team-social">
-                              <li>
-                                <a href="#">
-                                  <i class="fab fa-facebook-f"></i>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <i class="fab fa-twitter"></i>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <i class="fas fa-globe"></i>
-                                </a>
-                              </li>
-                            </div>
-                          </div>
-                          <div class="team-caption">
-                            <h3>
-                              <a href="#">Bruce Roberts</a>
-                            </h3>
-                            <p>Volunteer leader</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-team mb-30">
-                          <div class="team-img">
-                            <img
-                              src="assets/img/gallery/home_blog4.png"
-                              alt=""
-                            />
-
-                            <div class="team-social">
-                              <li>
-                                <a href="#">
-                                  <i class="fab fa-facebook-f"></i>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <i class="fab fa-twitter"></i>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <i class="fas fa-globe"></i>
-                                </a>
-                              </li>
-                            </div>
-                          </div>
-                          <div class="team-caption">
-                            <h3>
-                              <a href="#">Bruce Roberts</a>
-                            </h3>
-                            <p>Volunteer leader</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-loan"></span>
                   </div>
-               </div> */}
+                  <div class="cat-cap">
+                    <h5>InstallmentCounter</h5>
+                    <p>
 
-        {/* 
-                <div class="home-blog-area section-padding30">
-                  <div class="container">
-                    <div class="row justify-content-center">
-                      <div class="col-lg-7 col-md-10">
-                        <div class="section-tittle text-center mb-70">
-                          <span>News form our latest blog</span>
-                          <h2>News from around the world selected by us.</h2>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xl-6 col-lg-6 col-md-6">
-                        <div class="single-blogs mb-30">
-                          <div class="blog-images">
-                            <img src="assets/img/gallery/blog1.png" alt="" />
-                          </div>
-                          <div class="blog-captions">
-                            <span>January 28, 2020</span>
-                            <h2>
-                              <a href="blog_details.html">
-                                The advent of pesticides brought in its benefits
-                                and pitfalls.
-                              </a>
-                            </h2>
-                            <p>October 6, a2020by Steve</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xl-6 col-lg-6 col-md-6">
-                        <div class="single-blogs mb-30">
-                          <div class="blog-images">
-                            <img src="assets/img/gallery/blog2.png" alt="" />
-                          </div>
-                          <div class="blog-captions">
-                            <span>January 28, 2020</span>
-                            <h2>
-                              <a href="blog_details.html">
-                                The advent of pesticides brought in its benefits
-                                and pitfalls.
-                              </a>
-                            </h2>
-                            <p>October 6, a2020by Steve</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    </p>
+                    <span class="text-gray-900">
+                      {" "}
+                      Installments Made : {viewinvestor[1]}
+                    </span>
                   </div>
-                </div> */}
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-loan-1"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>Ready To Invest</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                        {" "}
+                      Is Ready To Invest : {String(viewinvestor[2])}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-like"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>Can Bid</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                     {" "}
+                      Can Bid : {String(viewinvestor[3])}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-like"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>Has Won A round</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                     {" "}
+                      Has Won A Round : {String(viewinvestor[4])}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-like"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>Are Manager</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                     {" "}
+                      Are You Manager : {String(viewIsManager)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-like"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>Lowest Bid</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                     {" "}
+                      Lowest Bid This Round : {String(viewfund[9])}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-like"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>Manager</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                     {" "}
+                      Manager Is : {String(viewfund[8])}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="single-cat text-center mb-50">
+                  <div class="cat-icon">
+                    <span class="flaticon-like"></span>
+                  </div>
+                  <div class="cat-cap">
+                    <h5>investor</h5>
+                    <p>
+
+                    </p>
+                    <span class="text-gray-900">
+                     {" "}
+                      investor : {JSON.stringify(viewinvestor)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
       </main>
     </div>
   );
