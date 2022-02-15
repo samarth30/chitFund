@@ -115,8 +115,13 @@ contract ChitFund {
             investors[msg.sender].canBid == true, "You cannot bid until you have contributed for this round, and you may only bid once per round"
         );
         if (_bid > 0 && _bid < fundBalance) { // bids must be less than the total balance of the fund.
-            winnerThisRound = msg.sender;
-            currentRoundLowestBid = _bid;
+            if( currentRoundLowestBid == 0) {
+                winnerThisRound = msg.sender;
+                currentRoundLowestBid = _bid;
+            } else if (_bid < currentRoundLowestBid){
+                winnerThisRound = msg.sender;
+                currentRoundLowestBid = _bid;
+            }
         }
         investors[msg.sender].canBid = false;
     }
