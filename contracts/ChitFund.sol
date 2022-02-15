@@ -108,8 +108,8 @@ contract ChitFund {
 
     function bidForJackpot(uint256 _bid) public {
         require(
-            investors[msg.sender].hasWonARound,
-            "You were a winner in a previous bid"
+            !investors[msg.sender].hasWonARound,
+            "You were a winner in a previous round. You are no longer allowed to bid."
         );
         require(
             investors[msg.sender].canBid == true, "You cannot bid until you have contributed for this round, and you may only bid once per round"
