@@ -188,22 +188,6 @@ const Home = ({
               <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="single-cat text-center mb-50">
                   <div class="cat-icon">
-                    <span class="flaticon-loan-1"></span>
-                  </div>
-                  <div class="cat-cap">
-                    <h5>GET WINNER</h5>
-                    <p>
-                      <button onClick={getWinner} className="btn btn-primary">
-                        getWinner
-                      </button>
-                    </p>
-                    <span class="text-gray-900">click to choose winner</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="single-cat text-center mb-50">
-                  <div class="cat-icon">
                     <span class="flaticon-like"></span>
                   </div>
                   <div class="cat-cap">
