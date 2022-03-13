@@ -23,6 +23,12 @@ contract Capitalization {
 
     mapping(address => Investor) public investors;
 
+    RepToken repToken = new RepToken(
+        "ChitUnderwriterToken",
+        "CUT",
+        0 // By deploying this contract, there will be no tokens created initially, but this contract will be the default admin
+    );
+
     function joinFund() public {
         require(
             !investors[msg.sender].hasJoined, "You are already part of the current fund"
@@ -46,13 +52,8 @@ contract Capitalization {
         }
         fundBalance += msg.value;
         investors[msg.sender].contributionAmount += msg.value;
-        // TODO: mint new rep tokens and transfer the appropriate amount to this contributor
+        repToken.mint(msg.sender, msg.value);  // mint an equal amount of rep token to correspond with the amount of eth contributed
     }
 
-    RepToken newToken = new RepToken(
-        "ChitUnderwriterToken",
-        "CUT",
-        0 // By deploying this contract, there will be no tokens created initially, but this contract will be the default admin
-    );
 
 }
