@@ -3,6 +3,7 @@
 pragma solidity ^0.6.8;
 
 import "@openzeppelin/contracts/math/SafeMath.sol";
+import "./RepToken.sol";
 
 contract Capitalization {
     using SafeMath for uint256;
@@ -47,4 +48,11 @@ contract Capitalization {
         investors[msg.sender].contributionAmount += msg.value;
         // TODO: mint new rep tokens and transfer the appropriate amount to this contributor
     }
+
+    RepToken newToken = new RepToken(
+        "ChitUnderwriterToken",
+        "CUT",
+        0 // By deploying this contract, there will be no tokens created initially, but this contract will be the default admin
+    );
+
 }
