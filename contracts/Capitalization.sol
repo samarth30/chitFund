@@ -8,7 +8,7 @@ import "./RepToken.sol";
 contract Capitalization {
     using SafeMath for uint256;
 
-    string public fundName;
+    string public poolName;
     uint256 public noOfInvestorsJoined;
     uint256 public fundBalance;
     uint256 public fundMaxAmount;
@@ -26,7 +26,7 @@ contract Capitalization {
     RepToken repToken = new RepToken(
         "ChitUnderwriterToken",
         "CUT",
-        0 // By deploying this contract, there will be no tokens created initially, but this contract will be the default admin
+         0 // By deploying this contract, there will be no tokens created initially (until minted later), but this contract will be the default admin
     );
 
     function joinFund() public {
@@ -53,6 +53,19 @@ contract Capitalization {
         fundBalance += msg.value;
         investors[msg.sender].contributionAmount += msg.value;
         repToken.mint(msg.sender, msg.value);  // mint an equal amount of rep token to correspond with the amount of eth contributed
+    }
+
+    constructor(
+        string memory _poolName,
+        uint256 _fundMaxAmount,
+        uint256 _minimumContributionAmount,
+        uint256 _contributionIncrementAmount
+    ) public {
+        poolName = _poolName;
+        fundMaxAmount = _fundMaxAmount;
+        minimumContributionAmount = _minimumContributionAmount * 1e18; // 1e18 = 1eth, or 10000000000000000 wei
+        contributionIncrementAmount = _contributionIncrementAmount * 1e18;
+        manager = msg.sender;  //TODO: consider adding this to constructor to make it configurable?
     }
 
 
