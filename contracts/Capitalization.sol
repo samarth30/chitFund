@@ -14,6 +14,8 @@ contract Capitalization {
     uint256 public fundMaxAmount;
     uint256 public minimumContributionAmount;
     uint256 public contributionIncrementAmount;
+    string public repTokenName;
+    string public repTokenSymbol;
     address public manager;
 
     struct Investor {
@@ -24,9 +26,9 @@ contract Capitalization {
     mapping(address => Investor) public investors;
 
     RepToken repToken = new RepToken(
-        "ChitUnderwriterToken",
-        "CUT",
-         0 // By deploying this contract, there will be no tokens created initially (until minted later), but this contract will be the default admin
+        repTokenName,
+        repTokenSymbol,
+        0 // By deploying this contract, there will be no tokens created initially (until minted later), but this contract will be the default admin
     );
 
     function joinFund() public {
@@ -59,12 +61,16 @@ contract Capitalization {
         string memory _poolName,
         uint256 _fundMaxAmount,
         uint256 _minimumContributionAmount,
-        uint256 _contributionIncrementAmount
+        uint256 _contributionIncrementAmount,
+        string memory _repTokenName,
+        string memory _repTokenSymbol
     ) public {
         poolName = _poolName;
         fundMaxAmount = _fundMaxAmount;
         minimumContributionAmount = _minimumContributionAmount * 1e18; // 1e18 = 1eth, or 10000000000000000 wei
         contributionIncrementAmount = _contributionIncrementAmount * 1e18;
+        repTokenName = _repTokenName;
+        repTokenSymbol = _repTokenSymbol;
         manager = msg.sender;  //TODO: consider adding this to constructor to make it configurable?
     }
 
