@@ -4,20 +4,21 @@ pragma solidity ^0.6.8;
 // import "../node_modules/@openzeppelin/contracts/math/SafeMath.sol";
 
 import "@openzeppelin/contracts/math/SafeMath.sol";
+import "./Capitalization.sol";
 
-contract ChitFund {
+contract ChitFund is Capitalization{
     using SafeMath for uint256;
     
     // These are constants once the fund is created
     string public fundName;
     uint256 public jackpot;
     uint256 public numOfInstallments;
-    uint256 public noOfInvestors;
+    uint256 public noOfMembers;
     address public manager;
     uint256 public installmentAmount;
     
     // This will be incremented but then remain throughout all of the subsequent rounds of bidding
-    uint256 public noOfInvestorsJoined;
+    uint256 public noOfMembersJoined;
     
     // These will change between rounds
     uint256 public fundBalance;
@@ -25,7 +26,7 @@ contract ChitFund {
     address payable private winnerThisRound = address(0);
     uint256 public currentRound = 1;
 
-    struct Investor {
+    struct Member {
         bool hasJoined;
         uint256 installmentCounter;
         bool isReadyToInvest;
@@ -33,20 +34,20 @@ contract ChitFund {
         bool hasWonARound;
     }
 
-    mapping(address => Investor) public investors;
+    mapping(address => Member) public investors;
 
     constructor(
         string memory _fundName,
         uint256 _installmentAmount,
         uint256 _numOfInstallments,
-        uint256 _noOfInvestors
+        uint256 _noOfMembers
     ) public {
         fundName = _fundName;
         numOfInstallments = _numOfInstallments;
-        noOfInvestors = _noOfInvestors;
+        noOfMembers = _noOfMembers;
         manager = msg.sender;  // TODO determine who message.sender is on contract deployment, also consider adding this to constructor to make it configurable?
         installmentAmount = _installmentAmount * 1e18;  // 1e18 = 1eth, or 10000000000000000 wei
-        jackpot = SafeMath.mul(installmentAmount, noOfInvestors);
+        jackpot = SafeMath.mul(installmentAmount, noOfMembers);
     }
 
     modifier isManager() {
@@ -64,7 +65,7 @@ contract ChitFund {
 
     function joinFund() public {
         require(
-            noOfInvestorsJoined < noOfInvestors,
+            noOfMembersJoined < noOfMembers,
             "The fund has already reached its maximum investors. Please try another fund"
         );
         require(
@@ -74,7 +75,7 @@ contract ChitFund {
         investors[msg.sender].isReadyToInvest = true;
         investors[msg.sender].canBid = false;
         investors[msg.sender].hasWonARound = false;
-        noOfInvestorsJoined++;
+        noOfMembersJoined++;
     }
 
     function contribute() public payable {
@@ -143,10 +144,10 @@ contract ChitFund {
             string memory _fundName,
             uint256 _jackpot,
             uint256 _numOfInstallments,
-            uint256 _noOfInvestors,
+            uint256 _noOfMembers,
             uint256 _fundBalance,
             uint256 _installmentAmount,
-            uint256 _noOfInvestorsJoined,
+            uint256 _noOfMembersJoined,
             uint256 _currentRound,
             address _manager,
             uint256 _currentRoundLowestBid
@@ -156,17 +157,17 @@ contract ChitFund {
             fundName,
             jackpot,
             numOfInstallments,
-            noOfInvestors,
+            noOfMembers,
             fundBalance,
             installmentAmount,
-            noOfInvestorsJoined,
+            noOfMembersJoined,
             currentRound,
             manager,
             currentRoundLowestBid
         );
     }
 
-    function viewInvestor()
+    function viewMember()
         public
         view
         returns (
@@ -192,4 +193,7 @@ contract ChitFund {
     //TODO make a function to kick member from fund, update variables to allow someone else to take their place
     //TODO make a function to reset the fund back to 0 assuming all of the installments and jackpots have been paid.
     //TODO make a function to return any funds left over after the last round to all members equally?
+
+    //TODO be able to subsitute member for another if a user gets kicked before taking a distribution
+    //
 }

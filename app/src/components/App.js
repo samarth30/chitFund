@@ -20,7 +20,7 @@ const App = () => {
   const [Loading, setLoading] = useState(true);
   const [Chitfund, setChitfund] = useState({});
   const [viewfund, setViewfund] = useState([]);
-  const [viewinvestor, setViewInvestor] = useState([]);
+  const [viewmember, setViewMember] = useState([]);
   const [viewIsManager, setViewIsManager] = useState([]);
   const [fundName, setFundName] = useState("");
   const [account, setAccount] = useState("");
@@ -73,7 +73,7 @@ const App = () => {
       setChitfundfactory(chitFundFactoryy);
       setChitfund(chitfund);
 
-      const viewInvestor = await chitfund.methods.viewInvestor().call({from: accounts[0]});
+      const viewMember = await chitfund.methods.viewMember().call({from: accounts[0]});
       const viewIsManager = await chitfund.methods.checkIfManager().call({from: accounts[0]});
       const viewFund = await chitfund.methods.viewFund().call();
       const jackpot = await web3.utils.fromWei(viewFund[1], "ether");
@@ -83,7 +83,7 @@ const App = () => {
       setNoOfInstallments(NoOfinstallments);
       setFundBalance(fundBalance);
       setViewfund(viewFund);
-      setViewInvestor(viewInvestor);
+      setViewMember(viewMember);
       setViewIsManager(viewIsManager);
 
       const chitfundcount = await chitFundFactoryy.methods
@@ -191,7 +191,7 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        <Navbar account={account} viewfund={viewfund} viewinvestor={viewinvestor} viewIsManager={viewIsManager} />
+        <Navbar account={account} viewfund={viewfund} viewmember={viewmember} viewIsManager={viewIsManager} />
         <div className="container-fluid mt-5">
           <div className="row">
             <div>
@@ -207,7 +207,7 @@ const App = () => {
                     <Fragment>
                       <Home
                         viewfund={viewfund}
-                        viewinvestor={viewinvestor}
+                        viewmember={viewmember}
                         viewIsManager={viewIsManager}
                         bidForJackpot={bidForJackpot}
                         releaseFund={releaseFund}
