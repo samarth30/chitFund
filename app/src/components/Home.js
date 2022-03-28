@@ -3,7 +3,7 @@ import Web3 from "web3";
 
 const Home = ({
   viewfund,
-  viewinvestor,
+  viewmember,
   viewIsManager,
   joinFund,
   contribute,
@@ -59,7 +59,7 @@ const Home = ({
                       <span class="ml-auto text-gray-900">{jackpot} ether</span>
                     </div>
                     <div class="flex border-t border-gray-300 py-2 ml-10">
-                      <span class="text-gray-900"> No of Investors </span>
+                      <span class="text-gray-900"> No of Members </span>
                       <span class="ml-auto text-gray-900">
                         {viewfund[3]} count
                       </span>
@@ -71,7 +71,7 @@ const Home = ({
                       </span>
                     </div>
                     <div class="flex border-t border-gray-300 py-2 ml-10">
-                      <span class="text-gray-900"> No of Investors Joined</span>
+                      <span class="text-gray-900"> No of Members Joined</span>
                       <span class="ml-auto text-gray-900">
                         {viewfund[6]} count
                       </span>
@@ -161,7 +161,7 @@ const Home = ({
                     </p>
                     <span class="text-gray-900">
                       {" "}
-                      No of Investors Joined : {viewfund[6]}
+                      No of Members Joined : {viewfund[6]}
                     </span>
                   </div>
                 </div>
@@ -224,7 +224,7 @@ const Home = ({
                     </p>
                     <span class="text-gray-900">
                       {" "}
-                      Joined : {String(viewinvestor[0])}
+                      Joined : {String(viewmember[0])}
                     </span>
                   </div>
                 </div>
@@ -241,7 +241,7 @@ const Home = ({
                     </p>
                     <span class="text-gray-900">
                       {" "}
-                      Installments Made : {viewinvestor[1]}
+                      Installments Made : {viewmember[1]}
                     </span>
                   </div>
                 </div>
@@ -258,7 +258,7 @@ const Home = ({
                     </p>
                     <span class="text-gray-900">
                         {" "}
-                      Is Ready To Invest : {String(viewinvestor[2])}
+                      Is Ready To Invest : {String(viewmember[2])}
                     </span>
                   </div>
                 </div>
@@ -275,7 +275,7 @@ const Home = ({
                     </p>
                     <span class="text-gray-900">
                      {" "}
-                      Can Bid : {String(viewinvestor[3])}
+                      Can Bid : {String(viewmember[3])}
                     </span>
                   </div>
                 </div>
@@ -292,7 +292,7 @@ const Home = ({
                     </p>
                     <span class="text-gray-900">
                      {" "}
-                      Has Won A Round : {String(viewinvestor[4])}
+                      Has Won A Round : {String(viewmember[4])}
                     </span>
                   </div>
                 </div>
@@ -356,13 +356,13 @@ const Home = ({
                     <span class="flaticon-like"></span>
                   </div>
                   <div class="cat-cap">
-                    <h5>investor</h5>
+                    <h5>member</h5>
                     <p>
 
                     </p>
                     <span class="text-gray-900">
                      {" "}
-                      investor : {JSON.stringify(viewinvestor)}
+                      member : {JSON.stringify(viewmember)}
                     </span>
                   </div>
                 </div>

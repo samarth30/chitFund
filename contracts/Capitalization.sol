@@ -9,7 +9,7 @@ contract Capitalization {
     using SafeMath for uint256;
 
     string public poolName;
-    uint256 public noOfInvestorsJoined;
+    uint256 public noOfUndewritersJoined;
     uint256 public fundBalance;
     uint256 public fundMaxAmount;
     uint256 public minimumContributionAmount;
@@ -18,12 +18,12 @@ contract Capitalization {
     string public repTokenSymbol;
     address public manager;
 
-    struct Investor {
+    struct Underwriter {
         bool hasJoined;
         uint256 contributionAmount;
     }
 
-    mapping(address => Investor) public investors;
+    mapping(address => Underwriter) public underwriters;
 
     RepToken repToken = new RepToken(
         repTokenName,
@@ -33,10 +33,10 @@ contract Capitalization {
 
     function joinFund() public {
         require(
-            !investors[msg.sender].hasJoined, "You are already part of the current fund"
+            !underwriters[msg.sender].hasJoined, "You are already part of the current fund"
         );
-        investors[msg.sender].hasJoined = true;
-        noOfInvestorsJoined++;
+        underwriters[msg.sender].hasJoined = true;
+        noOfUndewritersJoined++;
     }
 
     function contribute() public payable {
@@ -49,11 +49,11 @@ contract Capitalization {
         require( msg.value % 1 ether != 0, // check if contribution is in increment of exactly 1 eth
             "You are attempting to contribute an amount that is not an increment of 1 ETH, please contribute in increments of 1 ETH"
         );
-        if (investors[msg.sender].hasJoined == false) {
+        if (undewriters[msg.sender].hasJoined == false) {
             joinFund();
         }
         fundBalance += msg.value;
-        investors[msg.sender].contributionAmount += msg.value;
+        undewriters[msg.sender].contributionAmount += msg.value;
         repToken.mint(msg.sender, msg.value);  // mint an equal amount of rep token to correspond with the amount of eth contributed
     }
 
@@ -74,5 +74,7 @@ contract Capitalization {
         manager = msg.sender;  //TODO: consider adding this to constructor to make it configurable?
     }
 
+
+    //TODO: make function to destroy this contract, have funds returned to underwriters
 
 }
