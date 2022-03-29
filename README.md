@@ -8,8 +8,8 @@ You can see a live demo here https://chitfund.netlify.app/
 
 - [About The App](#about-the-app)
 - [Homepage Screenshots](#screenshots)
-- [Manager contract for chitfund] (#manager-contract-for-chitfund)
-- [Chitfund factory contract for new funds] (#chitfund-factory-contract-for-new-funds)
+- Manager contract for chitfund
+- Chitfund factory contract for new funds
 - [Technologies](#technologies)
 - [Project Setup](#setup)
 - [Status](#status)
