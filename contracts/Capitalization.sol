@@ -29,6 +29,23 @@ contract Capitalization {
 
     RepToken repToken = new RepToken(0);
 
+    constructor(
+        string memory _poolName,
+        uint256 _poolMaxAmount,
+        uint256 _minimumContributionAmount,
+        uint256 _contributionIncrementAmount,
+        string memory _repTokenName,
+        string memory _repTokenSymbol
+    ) public {
+        poolName = _poolName;
+        poolMaxAmount = _poolMaxAmount;
+        minimumContributionAmount = _minimumContributionAmount * 1e18; // 1e18 = 1eth, or 10000000000000000 wei
+        contributionIncrementAmount = _contributionIncrementAmount * 1e18;
+        repTokenName = _repTokenName;
+        repTokenSymbol = _repTokenSymbol;
+        capitalManager = msg.sender;  //TODO: consider adding this to constructor to make it configurable?
+    }
+
     function joinPool() public {
         require(
             !underwriters[msg.sender].hasJoined, "You are already part of the current fund"
@@ -55,23 +72,6 @@ contract Capitalization {
         underwriters[msg.sender].contributionAmount += msg.value;
         repToken.mint(msg.sender, msg.value);  // mint an equal amount of rep token to correspond with the amount of eth contributed
         underwriters[msg.sender].currentRepTokenHoldings += msg.value;
-    }
-
-    constructor(
-        string memory _poolName,
-        uint256 _poolMaxAmount,
-        uint256 _minimumContributionAmount,
-        uint256 _contributionIncrementAmount,
-        string memory _repTokenName,
-        string memory _repTokenSymbol
-    ) public {
-        poolName = _poolName;
-        poolMaxAmount = _poolMaxAmount;
-        minimumContributionAmount = _minimumContributionAmount * 1e18; // 1e18 = 1eth, or 10000000000000000 wei
-        contributionIncrementAmount = _contributionIncrementAmount * 1e18;
-        repTokenName = _repTokenName;
-        repTokenSymbol = _repTokenSymbol;
-        capitalManager = msg.sender;  //TODO: consider adding this to constructor to make it configurable?
     }
 
     function viewCapitalization()

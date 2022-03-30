@@ -6,7 +6,7 @@ pragma solidity ^0.6.8;
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "./Capitalization.sol";
 
-contract ChitFund is Capitalization{
+contract ChitFund {
     using SafeMath for uint256;
     
     // These are constants once the fund is created
