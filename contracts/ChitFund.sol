@@ -137,6 +137,14 @@ contract ChitFund {
         currentRoundLowestBid = 0;
     }
 
+    function kickMember(address member, address takeOverMember) public payable isManager {  
+        require(!investors[member].isValue || !investors[member].hasJoined, "Member is not part of the current fund");
+        require(investors[takeOverMember].hasJoined, "Takeover member is already a part of the current fund");
+
+        investors[takeOverMember] = investors[member]; // transfer rest of the installment payment responisibility to underwriter
+        delete investors[member];
+    }
+
     function viewFund()
         public
         view
@@ -190,7 +198,6 @@ contract ChitFund {
 
     // Some features to consider for later if time allows
     //TODO make a function to destroy fund
-    //TODO make a function to kick member from fund, update variables to allow someone else to take their place
     //TODO make a function to reset the fund back to 0 assuming all of the installments and jackpots have been paid.
     //TODO make a function to return any funds left over after the last round to all members equally?
 
