@@ -137,6 +137,14 @@ contract ChitFund {
         currentRoundLowestBid = 0;
     }
 
+    function kickMember(address member, address takeOverMember) public payable isManager {  
+        require(!investors[member].isValue || !investors[member].hasJoined, "Member is not part of the current fund");
+        require(investors[takeOverMember].hasJoined, "Takeover member is already a part of the current fund");
+
+        investors[takeOverMember] = investors[member]; // transfer rest of the installment payment responsibility to underwriter
+        delete investors[member];
+    }
+
     function viewFund()
         public
         view
